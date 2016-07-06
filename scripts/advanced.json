@@ -1,0 +1,8 @@
+{
+    "Helper": {
+        "InstallHANA": "Install HANA or not. If False, this will create the HANA nodes with all the pre-requisites",
+        "CreateAMI": "Option to create an AMI once at the end of deployment (may reboot)"
+        },
+    "InstallHANA": "False",
+    "CreateAMI": "False"
+}
