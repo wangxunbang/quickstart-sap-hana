@@ -1,484 +1,487 @@
 {
-	"AWSTemplateFormatVersion": "2010-09-09",
-	"Description": "(0007) AWS Infrastructure Deployment for SAP HANA",
-	"Parameters": {
-		"VPC": {
-			"Description": "VPC id where HANA nodes will be deployed.",
-			"Type": "String"
-		},
-
-		"InternetGateway": {
-			"Description": "InternetGateway within VPC through which traffic flows.",
-			"Type": "String"
-		},
-
-		"VPCCIDR": {
-			"Description": "CIDR Block for the VPC you are creating.",
-			"Type": "String",
-			"Default": "10.0.0.0/16",
-			"AllowedPattern": "[a-zA-Z0-9]+\\..+"
-		},
-
-
-		"DMZCIDR": {
-			"Description": "CIDR Block for the Public DMZ Subnet located in the new VPC.",
-			"Type": "String",
-			"Default": "10.0.2.0/24",
-			"AllowedPattern": "[a-zA-Z0-9]+\\..+"
-		},
-		"PrivSubCIDR": {
-			"Description": "CIDR Block for Private Subnet where SAP HANA will be deployed.",
-			"Type": "String",
-			"Default": "10.0.1.0/24",
-			"AllowedPattern": "[a-zA-Z0-9]+\\..+"
-		},
-
-		"AvailabilityZone": {
-			"Description": "Choose the AvailabilityZone where HANA Subnets will be created",
-			"Type": "AWS::EC2::AvailabilityZone::Name"
-		},
-
-		"RemoteAccessCIDR": {
-			"Description": "IP CIDR from which you are likely to RDP into the instance. You can add rules later by modifying the created security groups e.g. 54.32.98.160/32.",
-			"Type": "String",
-			"MinLength": "9",
-			"MaxLength": "18",
-			"Default": "0.0.0.0/0",
-			"AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
-			"ConstraintDescription": "must be a valid CIDR range of the form x.x.x.x/x."
-		},
-		"KeyName": {
-			"Type": "AWS::EC2::KeyPair::KeyName",
-			"Description": "Name of an existing EC2 KeyPair. RDP instance will launch with this KeyPair."
-		},
-		"BASTIONInstanceType": {
-			"Description": "Amazon EC2 instance type for the BASTION Host.",
-			"Type": "String",
-			"Default": "t2.small",
-			"AllowedValues": [
-
-				"t2.small",
-				"t2.medium",
-				"t2.large",
-				"m4.large",
-				"c4.large"
-
-			]
-		}
-	},
-	"Mappings": {
-
-		"AWSBASTIONAMI": {
-			"us-west-2": {
-				"AMI": "ami-c229c0a2"
-			},
-			"sa-east-1": {
-				"AMI": "ami-1e159872"
-			},
-			"ap-northeast-1": {
-				"AMI": "ami-f80e0596"
-			},
-			"eu-west-1": {
-				"AMI": "ami-31328842"
-			},
-			"us-east-1": {
-				"AMI": "ami-08111162"
-			},
-			"us-west-1": {
-				"AMI": "ami-1b0f7d7b"
-			},
-			"ap-southeast-2": {
-				"AMI": "ami-f2210191"
-			},
-			"ap-southeast-1": {
-				"AMI": "ami-e90dc68a"
-			},
-			"eu-central-1": {
-				"AMI": "ami-e2df388d"
-			}
-		},
-
-		"AWSBASTIONAMIOLD": {
-			"us-west-2": {
-				"AMI": "ami-bb69128b"
-			},
-			"sa-east-1": {
-				"AMI": "ami-b972dba4"
-			},
-			"ap-northeast-1": {
-				"AMI": "ami-55c29e54"
-			},
-			"eu-west-1": {
-				"AMI": "ami-5b60b02c"
-			},
-			"us-east-1": {
-				"AMI": "ami-6e9e4b06"
-			},
-			"us-west-1": {
-				"AMI": "ami-2b2b296e"
-			},
-			"ap-southeast-2": {
-				"AMI": "ami-a164029b"
-			},
-			"ap-southeast-1": {
-				"AMI": "ami-d482da86"
-			},
-			"eu-central-1": {
-				"AMI": "ami-ae380eb3"
-			}
-		}
-	},
-	"Outputs": {
-		"BASTIONInstanceEIP": {
-			"Description": "BASTION Host located in DMZ Subnet",
-			"Value": {
-				"Fn::Join": [
-					"", [
-						"BASTION Server IP:", {
-							"Fn::GetAtt": [
-								"BASTIONInstance",
-								"PublicIp"
-							]
-						}
-					]
-				]
-			}
-		},
-		"VPCID": {
-			"Description": "VPC-ID of the newly created VPC",
-			"Value": {
-				"Ref": "VPC"
-			}
-		},
-		"PublicSubnet": {
-			"Description": "Subnet-ID of the Public or DMZ Subnet",
-			"Value": {
-				"Ref": "DMZSubnet"
-			}
-		},
-		"PrivateSubnet": {
-			"Description": "Subnet-ID of the Private or Subnet where HANA will be deployed",
-			"Value": {
-				"Ref": "HANASubnet"
-			}
-		},
-		"HANASubnet": {
-			"Description": "Subnet to deploy HANA",
-			"Value": {
-				"Ref": "HANASubnet"
-			}
-		}
-	},
-	"Resources": {
-
-
-		"HANASubnet": {
-			"Type": "AWS::EC2::Subnet",
-			"Properties": {
-				"VpcId": {
-					"Ref": "VPC"
-				},
-				"CidrBlock": {
-					"Ref": "PrivSubCIDR"
-				},
-				"Tags": [{
-					"Key": "Application",
-					"Value": "HANA"
-				}, {
-					"Key": "Name",
-					"Value": "Private Subnet - HANA"
-				}, {
-					"Key": "Network",
-					"Value": "Private"
-				}],
-				"AvailabilityZone": {
-					"Ref": "AvailabilityZone"
-				}
-			}
-		},
-		"DMZSubnet": {
-			"Type": "AWS::EC2::Subnet",
-			"Properties": {
-				"VpcId": {
-					"Ref": "VPC"
-				},
-				"CidrBlock": {
-					"Ref": "DMZCIDR"
-				},
-				"Tags": [{
-					"Key": "Application",
-					"Value": "BASTION and RDP"
-				}, {
-					"Key": "Name",
-					"Value": "Public Subnet - HANA"
-				}, {
-					"Key": "Network",
-					"Value": "Public"
-				}],
-				"AvailabilityZone": {
-					"Ref": "AvailabilityZone"
-				}
-			}
-		},
-		"BASTIONInstance": {
-			"Type": "AWS::EC2::Instance",
-			"Properties": {
-				"Tags": [{
-					"Key": "Name",
-					"Value": "Bastion Instance (Public Subnet)"
-				}],
-				"InstanceType": {
-					"Ref": "BASTIONInstanceType"
-				},
-				"KeyName": {
-					"Ref": "KeyName"
-				},
-				"NetworkInterfaces": [{
-					"NetworkInterfaceId": {
-						"Ref": "BASTIONInterface"
-					},
-					"DeviceIndex": "0"
-				}],
-				"ImageId": {
-					"Fn::FindInMap": [
-						"AWSBASTIONAMI", {
-							"Ref": "AWS::Region"
-						},
-						"AMI"
-					]
-				}
-			}
-		},
-		"BASTIONEIP": {
-			"Type": "AWS::EC2::EIP",
-			"Properties": {
-				"Domain": "vpc"
-			}
-		},
-		"BASTIONInterface": {
-			"Type": "AWS::EC2::NetworkInterface",
-			"Properties": {
-				"SubnetId": {
-					"Ref": "DMZSubnet"
-				},
-				"Description": "External interface for the BASTION Host",
-				"GroupSet": [{
-					"Ref": "BASTIONSecurityGroup"
-				}],
-				"SourceDestCheck": "false",
-				"Tags": [{
-					"Key": "Network",
-					"Value": "Public"
-				}]
-			}
-		},
-		"AssociateInterfaceBASTION": {
-			"Type": "AWS::EC2::EIPAssociation",
-			"Properties": {
-				"AllocationId": {
-					"Fn::GetAtt": [
-						"BASTIONEIP",
-						"AllocationId"
-					]
-				},
-				"NetworkInterfaceId": {
-					"Ref": "BASTIONInterface"
-				}
-			}
-		},
-		"BASTIONSecurityGroup": {
-			"Type": "AWS::EC2::SecurityGroup",
-			"Properties": {
-				"GroupDescription": "Enable internal access to the BASTION host",
-				"VpcId": {
-					"Ref": "VPC"
-				},
-				"SecurityGroupIngress": [{
-					"IpProtocol": "tcp",
-					"FromPort": "22",
-					"ToPort": "22",
-					"CidrIp": {
-						"Ref": "RemoteAccessCIDR"
-					}
-				}],
-				"SecurityGroupEgress": [{
-					"IpProtocol": "tcp",
-					"FromPort": "80",
-					"ToPort": "80",
-					"CidrIp": "0.0.0.0/0"
-				}, {
-					"IpProtocol": "tcp",
-					"FromPort": "443",
-					"ToPort": "443",
-					"CidrIp": "0.0.0.0/0"
-				}, {
-					"IpProtocol": "tcp",
-					"FromPort": "22",
-					"ToPort": "22",
-					"CidrIp": {
-						"Ref": "PrivSubCIDR"
-					}
-				}]
-			}
-		},
-		"NATGWYEIP": {
-			"Type": "AWS::EC2::EIP",
-			"Properties": {
-				"Domain": "vpc"
-			}
-		},
-		"NATGateway1": {
-			"Type": "AWS::EC2::NatGateway",
-			"Properties": {
-				"AllocationId": {
-					"Fn::GetAtt": [
-						"NATGWYEIP",
-						"AllocationId"
-					]
-				},
-				"SubnetId": {
-					"Ref": "DMZSubnet"
-				}
-			}
-		},
-		"RDPSecurityGroup": {
-			"Type": "AWS::EC2::SecurityGroup",
-			"Properties": {
-				"GroupDescription": "RDP Instance security group",
-				"VpcId": {
-					"Ref": "VPC"
-				},
-				"SecurityGroupIngress": [{
-					"IpProtocol": "tcp",
-					"FromPort": "3389",
-					"ToPort": "3389",
-					"CidrIp": {
-						"Ref": "RemoteAccessCIDR"
-					}
-				}],
-				"SecurityGroupEgress": [{
-					"IpProtocol": "tcp",
-					"FromPort": "1",
-					"ToPort": "65535",
-					"CidrIp": "0.0.0.0/0"
-				}]
-			}
-		},
-		"HANARouteTable": {
-			"Type": "AWS::EC2::RouteTable",
-			"Properties": {
-				"VpcId": {
-					"Ref": "VPC"
-				},
-				"Tags": [{
-					"Key": "Application",
-					"Value": "HANA"
-				}]
-			}
-		},
-		"DMZRouteTable": {
-			"Type": "AWS::EC2::RouteTable",
-			"Properties": {
-				"VpcId": {
-					"Ref": "VPC"
-				},
-				"Tags": [{
-					"Key": "Application",
-					"Value": "NAT GW"
-				}]
-			}
-		},
-		"PublicRoute": {
-			"Type": "AWS::EC2::Route",
-			"Properties": {
-				"RouteTableId": {
-					"Ref": "DMZRouteTable"
-				},
-				"DestinationCidrBlock": "0.0.0.0/0",
-				"GatewayId": {
-					"Ref": "InternetGateway"
-				}
-			}
-		},
-		"HanaRoute": {
-			"Type": "AWS::EC2::Route",
-			"Properties": {
-				"RouteTableId": {
-					"Ref": "HANARouteTable"
-				},
-				"DestinationCidrBlock": "0.0.0.0/0",
-				"NatGatewayId": {
-					"Ref": "NATGateway1"
-				}
-			}
-		},
-		"PublicNetworkAcl": {
-			"Type": "AWS::EC2::NetworkAcl",
-			"Properties": {
-				"VpcId": {
-					"Ref": "VPC"
-				},
-				"Tags": [{
-					"Key": "Network",
-					"Value": "Public"
-				}]
-			}
-		},
-		"HanaSubnetRouteTableAssociation": {
-			"Type": "AWS::EC2::SubnetRouteTableAssociation",
-			"Properties": {
-				"SubnetId": {
-					"Ref": "HANASubnet"
-				},
-				"RouteTableId": {
-					"Ref": "HANARouteTable"
-				}
-			}
-		},
-		"PublicSubnetRouteTableAssociation": {
-			"Type": "AWS::EC2::SubnetRouteTableAssociation",
-			"Properties": {
-				"SubnetId": {
-					"Ref": "DMZSubnet"
-				},
-				"RouteTableId": {
-					"Ref": "DMZRouteTable"
-				}
-			}
-		},
-		"InboundPublicNetworkAclEntry": {
-			"Type": "AWS::EC2::NetworkAclEntry",
-			"Properties": {
-				"NetworkAclId": {
-					"Ref": "PublicNetworkAcl"
-				},
-				"RuleNumber": "100",
-				"Protocol": "6",
-				"RuleAction": "allow",
-				"Egress": "false",
-				"CidrBlock": "0.0.0.0/0",
-				"PortRange": {
-					"From": "0",
-					"To": "65535"
-				}
-			}
-		},
-		"OutBoundPublicNetworkAclEntry": {
-			"Type": "AWS::EC2::NetworkAclEntry",
-			"Properties": {
-				"NetworkAclId": {
-					"Ref": "PublicNetworkAcl"
-				},
-				"RuleNumber": "100",
-				"Protocol": "6",
-				"RuleAction": "allow",
-				"Egress": "true",
-				"CidrBlock": "0.0.0.0/0",
-				"PortRange": {
-					"From": "0",
-					"To": "65535"
-				}
-			}
-		}
-	}
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "(0007) AWS Infrastructure Deployment for SAP HANA",
+    "Parameters": {
+        "VPC": {
+            "Description": "VPC id where HANA nodes will be deployed.",
+            "Type": "String"
+        },
+        "InternetGateway": {
+            "Description": "InternetGateway within VPC through which traffic flows.",
+            "Type": "String"
+        },
+        "VPCCIDR": {
+            "Description": "CIDR Block for the VPC you are creating.",
+            "Type": "String",
+            "Default": "10.0.0.0/16",
+            "AllowedPattern": "[a-zA-Z0-9]+\\..+"
+        },
+        "DMZCIDR": {
+            "Description": "CIDR Block for the Public DMZ Subnet located in the new VPC.",
+            "Type": "String",
+            "Default": "10.0.2.0/24",
+            "AllowedPattern": "[a-zA-Z0-9]+\\..+"
+        },
+        "PrivSubCIDR": {
+            "Description": "CIDR Block for Private Subnet where SAP HANA will be deployed.",
+            "Type": "String",
+            "Default": "10.0.1.0/24",
+            "AllowedPattern": "[a-zA-Z0-9]+\\..+"
+        },
+        "AvailabilityZone": {
+            "Description": "Choose the AvailabilityZone where HANA Subnets will be created",
+            "Type": "AWS::EC2::AvailabilityZone::Name"
+        },
+        "RemoteAccessCIDR": {
+            "Description": "IP CIDR from which you are likely to RDP into the instance. You can add rules later by modifying the created security groups e.g. 54.32.98.160/32.",
+            "Type": "String",
+            "MinLength": "9",
+            "MaxLength": "18",
+            "Default": "0.0.0.0/0",
+            "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+            "ConstraintDescription": "must be a valid CIDR range of the form x.x.x.x/x."
+        },
+        "KeyName": {
+            "Type": "AWS::EC2::KeyPair::KeyName",
+            "Description": "Name of an existing EC2 KeyPair. RDP instance will launch with this KeyPair."
+        },
+        "BASTIONInstanceType": {
+            "Description": "Amazon EC2 instance type for the BASTION Host.",
+            "Type": "String",
+            "Default": "t2.small",
+            "AllowedValues": [
+                "t2.small",
+                "t2.medium",
+                "t2.large",
+                "m4.large",
+                "c4.large"
+            ]
+        }
+    },
+    "Mappings": {
+        "AWSAMIRegionMap": {
+            "AMI": {
+                "AMZNLINUX": "amzn-ami-hvm-2016.03.3.x86_64-gp2"
+            },
+            "ap-northeast-1": {
+                "AMZNLINUX": "ami-374db956"
+            },
+            "ap-northeast-2": {
+                "AMZNLINUX": "ami-ffbdd790"
+            },
+            "ap-south-1": {
+                "AMZNLINUX": "ami-ffbdd790"
+            },
+            "ap-southeast-1": {
+                "AMZNLINUX": "ami-a59b49c6"
+            },
+            "ap-southeast-2": {
+                "AMZNLINUX": "ami-dc361ebf"
+            },
+            "eu-central-1": {
+                "AMZNLINUX": "ami-ea26ce85"
+            },
+            "eu-west-1": {
+                "AMZNLINUX": "ami-f9dd458a"
+            },
+            "sa-east-1": {
+                "AMZNLINUX": "ami-6dd04501"
+            },
+            "us-east-1": {
+                "AMZNLINUX": "ami-6869aa05"
+            },
+            "us-west-1": {
+                "AMZNLINUX": "ami-31490d51"
+            },
+            "us-west-2": {
+                "AMZNLINUX": "ami-7172b611"
+            }
+        }
+    },
+    "Outputs": {
+        "BASTIONInstanceEIP": {
+            "Description": "BASTION Host located in DMZ Subnet",
+            "Value": {
+                "Fn::Join": [
+                    "",
+                    [
+                        "BASTION Server IP:",
+                        {
+                            "Fn::GetAtt": [
+                                "BASTIONInstance",
+                                "PublicIp"
+                            ]
+                        }
+                    ]
+                ]
+            }
+        },
+        "VPCID": {
+            "Description": "VPC-ID of the newly created VPC",
+            "Value": {
+                "Ref": "VPC"
+            }
+        },
+        "PublicSubnet": {
+            "Description": "Subnet-ID of the Public or DMZ Subnet",
+            "Value": {
+                "Ref": "DMZSubnet"
+            }
+        },
+        "PrivateSubnet": {
+            "Description": "Subnet-ID of the Private or Subnet where HANA will be deployed",
+            "Value": {
+                "Ref": "HANASubnet"
+            }
+        },
+        "HANASubnet": {
+            "Description": "Subnet to deploy HANA",
+            "Value": {
+                "Ref": "HANASubnet"
+            }
+        }
+    },
+    "Resources": {
+        "HANASubnet": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "CidrBlock": {
+                    "Ref": "PrivSubCIDR"
+                },
+                "Tags": [
+                    {
+                        "Key": "Application",
+                        "Value": "HANA"
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "Private Subnet - HANA"
+                    },
+                    {
+                        "Key": "Network",
+                        "Value": "Private"
+                    }
+                ],
+                "AvailabilityZone": {
+                    "Ref": "AvailabilityZone"
+                }
+            }
+        },
+        "DMZSubnet": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "CidrBlock": {
+                    "Ref": "DMZCIDR"
+                },
+                "Tags": [
+                    {
+                        "Key": "Application",
+                        "Value": "BASTION and RDP"
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "Public Subnet - HANA"
+                    },
+                    {
+                        "Key": "Network",
+                        "Value": "Public"
+                    }
+                ],
+                "AvailabilityZone": {
+                    "Ref": "AvailabilityZone"
+                }
+            }
+        },
+        "BASTIONInstance": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "Bastion Instance (Public Subnet)"
+                    }
+                ],
+                "InstanceType": {
+                    "Ref": "BASTIONInstanceType"
+                },
+                "KeyName": {
+                    "Ref": "KeyName"
+                },
+                "NetworkInterfaces": [
+                    {
+                        "NetworkInterfaceId": {
+                            "Ref": "BASTIONInterface"
+                        },
+                        "DeviceIndex": "0"
+                    }
+                ],
+                "ImageId": {
+                    "Fn::FindInMap": [
+                        "AWSAMIRegionMap",
+                        {
+                            "Ref": "AWS::Region"
+                        },
+                        "AMZNLINUX"
+                    ]
+                }
+            }
+        },
+        "BASTIONEIP": {
+            "Type": "AWS::EC2::EIP",
+            "Properties": {
+                "Domain": "vpc"
+            }
+        },
+        "BASTIONInterface": {
+            "Type": "AWS::EC2::NetworkInterface",
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DMZSubnet"
+                },
+                "Description": "External interface for the BASTION Host",
+                "GroupSet": [
+                    {
+                        "Ref": "BASTIONSecurityGroup"
+                    }
+                ],
+                "SourceDestCheck": "false",
+                "Tags": [
+                    {
+                        "Key": "Network",
+                        "Value": "Public"
+                    }
+                ]
+            }
+        },
+        "AssociateInterfaceBASTION": {
+            "Type": "AWS::EC2::EIPAssociation",
+            "Properties": {
+                "AllocationId": {
+                    "Fn::GetAtt": [
+                        "BASTIONEIP",
+                        "AllocationId"
+                    ]
+                },
+                "NetworkInterfaceId": {
+                    "Ref": "BASTIONInterface"
+                }
+            }
+        },
+        "BASTIONSecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "Enable internal access to the BASTION host",
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "22",
+                        "ToPort": "22",
+                        "CidrIp": {
+                            "Ref": "RemoteAccessCIDR"
+                        }
+                    }
+                ],
+                "SecurityGroupEgress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "80",
+                        "ToPort": "80",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "443",
+                        "ToPort": "443",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "22",
+                        "ToPort": "22",
+                        "CidrIp": {
+                            "Ref": "PrivSubCIDR"
+                        }
+                    }
+                ]
+            }
+        },
+        "NATGWYEIP": {
+            "Type": "AWS::EC2::EIP",
+            "Properties": {
+                "Domain": "vpc"
+            }
+        },
+        "NATGateway1": {
+            "Type": "AWS::EC2::NatGateway",
+            "Properties": {
+                "AllocationId": {
+                    "Fn::GetAtt": [
+                        "NATGWYEIP",
+                        "AllocationId"
+                    ]
+                },
+                "SubnetId": {
+                    "Ref": "DMZSubnet"
+                }
+            }
+        },
+        "RDPSecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "RDP Instance security group",
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "3389",
+                        "ToPort": "3389",
+                        "CidrIp": {
+                            "Ref": "RemoteAccessCIDR"
+                        }
+                    }
+                ],
+                "SecurityGroupEgress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "1",
+                        "ToPort": "65535",
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ]
+            }
+        },
+        "HANARouteTable": {
+            "Type": "AWS::EC2::RouteTable",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "Tags": [
+                    {
+                        "Key": "Application",
+                        "Value": "HANA"
+                    }
+                ]
+            }
+        },
+        "DMZRouteTable": {
+            "Type": "AWS::EC2::RouteTable",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "Tags": [
+                    {
+                        "Key": "Application",
+                        "Value": "NAT GW"
+                    }
+                ]
+            }
+        },
+        "PublicRoute": {
+            "Type": "AWS::EC2::Route",
+            "Properties": {
+                "RouteTableId": {
+                    "Ref": "DMZRouteTable"
+                },
+                "DestinationCidrBlock": "0.0.0.0/0",
+                "GatewayId": {
+                    "Ref": "InternetGateway"
+                }
+            }
+        },
+        "HanaRoute": {
+            "Type": "AWS::EC2::Route",
+            "Properties": {
+                "RouteTableId": {
+                    "Ref": "HANARouteTable"
+                },
+                "DestinationCidrBlock": "0.0.0.0/0",
+                "NatGatewayId": {
+                    "Ref": "NATGateway1"
+                }
+            }
+        },
+        "PublicNetworkAcl": {
+            "Type": "AWS::EC2::NetworkAcl",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "Tags": [
+                    {
+                        "Key": "Network",
+                        "Value": "Public"
+                    }
+                ]
+            }
+        },
+        "HanaSubnetRouteTableAssociation": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "HANASubnet"
+                },
+                "RouteTableId": {
+                    "Ref": "HANARouteTable"
+                }
+            }
+        },
+        "PublicSubnetRouteTableAssociation": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DMZSubnet"
+                },
+                "RouteTableId": {
+                    "Ref": "DMZRouteTable"
+                }
+            }
+        },
+        "InboundPublicNetworkAclEntry": {
+            "Type": "AWS::EC2::NetworkAclEntry",
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "PublicNetworkAcl"
+                },
+                "RuleNumber": "100",
+                "Protocol": "6",
+                "RuleAction": "allow",
+                "Egress": "false",
+                "CidrBlock": "0.0.0.0/0",
+                "PortRange": {
+                    "From": "0",
+                    "To": "65535"
+                }
+            }
+        },
+        "OutBoundPublicNetworkAclEntry": {
+            "Type": "AWS::EC2::NetworkAclEntry",
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "PublicNetworkAcl"
+                },
+                "RuleNumber": "100",
+                "Protocol": "6",
+                "RuleAction": "allow",
+                "Egress": "true",
+                "CidrBlock": "0.0.0.0/0",
+                "PortRange": {
+                    "From": "0",
+                    "To": "65535"
+                }
+            }
+        }
+    }
 }
