@@ -1,0 +1,102 @@
+[
+    {
+        "ParameterKey": "AutoRecovery",
+        "ParameterValue": "Yes"
+    },
+    {
+        "ParameterKey": "AvailabilityZone",
+        "ParameterValue": "us-west-2a"
+    },
+    {
+        "ParameterKey": "BASTIONInstanceType",
+        "ParameterValue": "t2.small"
+    },
+    {
+        "ParameterKey": "DMZCIDR",
+        "ParameterValue": "10.0.2.0/24"
+    },
+    {
+        "ParameterKey": "DomainName",
+        "ParameterValue": "local"
+    },
+    {
+        "ParameterKey": "Encryption",
+        "ParameterValue": "No"
+    },
+    {
+        "ParameterKey": "HANAInstallMedia",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "HANAMasterHostname",
+        "ParameterValue": "imdbmaster"
+    },
+    {
+        "ParameterKey": "HANAMasterPass",
+        "ParameterValue": "NEED_VALUE"
+    },
+    {
+        "ParameterKey": "HANAWorkerHostname",
+        "ParameterValue": "imdbworker"
+    },
+    {
+        "ParameterKey": "HostCount",
+        "ParameterValue": "1"
+    },
+    {
+        "ParameterKey": "InstallHANA",
+        "ParameterValue": "Yes"
+    },
+    {
+        "ParameterKey": "InstallRDPInstance",
+        "ParameterValue": "No"
+    },
+    {
+        "ParameterKey": "KeyName",
+        "ParameterValue": "home"
+    },
+    {
+        "ParameterKey": "MyInstanceType",
+        "ParameterValue": "r3.2xlarge"
+    },
+    {
+        "ParameterKey": "MyOS",
+        "ParameterValue": "SLES12SP1"
+    },
+    {
+        "ParameterKey": "PlacementGroupName",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "PrivSubCIDR",
+        "ParameterValue": "10.0.1.0/24"
+    },
+    {
+        "ParameterKey": "PrivateBucket",
+        "ParameterValue": "quickstart-reference/sap/hana/latest"
+    },
+    {
+        "ParameterKey": "RDPInstanceType",
+        "ParameterValue": "c4.large"
+    },
+    {
+        "ParameterKey": "RemoteAccessCIDR",
+        "ParameterValue": "0.0.0.0/0"
+    },
+    {
+        "ParameterKey": "SAPInstanceNum",
+        "ParameterValue": "00"
+    },
+    {
+        "ParameterKey": "SID",
+        "ParameterValue": "HDB"
+    },
+    {
+        "ParameterKey": "VPCCIDR",
+        "ParameterValue": "10.0.0.0/16"
+    },
+    {
+        "ParameterKey": "VolumeType",
+        "ParameterValue": "gp2"
+    }
+]
