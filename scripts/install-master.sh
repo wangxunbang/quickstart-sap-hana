@@ -114,7 +114,7 @@ python /root/install/build_storage.py  -config /root/install/storage.json  \
 python /root/install/build_storage.py  -config /root/install/storage.json  \
 					     -ismaster ${IsMasterNode} \
 					     -hostcount ${HostCount} -which usr_sap \
-					     -instance_type ${MyInstanceType} -storage_type ${MyVolumeType} \
+					     -instance_type ${MyInstanceType} -storage_type ${USR_SAP_VOL} \
 					     >> ${STORAGE_SCRIPT}
 
 

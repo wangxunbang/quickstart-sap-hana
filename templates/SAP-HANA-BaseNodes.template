@@ -1901,6 +1901,8 @@
                                 "\n",
                                 "sh /root/install/writeconfig.sh SHARED_VOL=gp2",
                                 "\n",
+                                "sh /root/install/writeconfig.sh USR_SAP_VOL=gp2",
+                                "\n",
                                 "echo ",
                                 {
                                     "Fn::Join": [
@@ -2220,6 +2222,8 @@
                                 "\n",
                                 "sh /root/install/writeconfig.sh IsWorkerNode=1",
                                 "\n",
+                                "sh /root/install/writeconfig.sh USR_SAP_VOL=gp2",
+                                "\n",
                                 "echo ",
                                 {
                                     "Fn::Join": [
@@ -2497,6 +2501,8 @@
                                 "sh /root/install/writeconfig.sh IsMasterNode=0",
                                 "\n",
                                 "sh /root/install/writeconfig.sh IsWorkerNode=1",
+                                "\n",
+                                "sh /root/install/writeconfig.sh USR_SAP_VOL=gp2",
                                 "\n",
                                 "echo ",
                                 {
@@ -2776,6 +2782,8 @@
                                 "\n",
                                 "sh /root/install/writeconfig.sh IsWorkerNode=1",
                                 "\n",
+                                "sh /root/install/writeconfig.sh USR_SAP_VOL=gp2",
+                                "\n",
                                 "echo ",
                                 {
                                     "Fn::Join": [
@@ -3054,6 +3062,8 @@
                                 "\n",
                                 "sh /root/install/writeconfig.sh IsWorkerNode=1",
                                 "\n",
+                                "sh /root/install/writeconfig.sh USR_SAP_VOL=gp2",
+                                "\n",
                                 "echo ",
                                 {
                                     "Fn::Join": [
@@ -3331,6 +3341,8 @@
                                 "sh /root/install/writeconfig.sh IsMasterNode=0",
                                 "\n",
                                 "sh /root/install/writeconfig.sh IsWorkerNode=1",
+                                "\n",
+                                "sh /root/install/writeconfig.sh USR_SAP_VOL=gp2",
                                 "\n",
                                 "echo ",
                                 {
