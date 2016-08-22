@@ -620,7 +620,7 @@
                 "SLES12HVM": "suse-sles-12-v20151113-hvm-ssd-x86_64",
                 "SLES12SP1HVM": "suse-sles-12-sp1-v20160805-hvm-ssd-x86_64",
                 "SLES12SP1SAPHVM": "suse-sles-sap-12-sp1-v20160526-hvm-ssd-x86_64-2f28c0e5-af3e-4d22-95f1-6c1af645c209-ami-5c718031.3",
-                "WS2012R2": "Windows_Server-2012-R2_RTM-English-64Bit-Base-2016.07.26"
+                "WS2012R2": "Windows_Server-2012-R2_RTM-English-64Bit-Base-2016.08.11"
             },
             "ap-northeast-1": {
                 "RHEL66HVM": "ami-9ec01c9e",
@@ -630,7 +630,7 @@
                 "SLES12HVM": "ami-0a705064",
                 "SLES12SP1HVM": "ami-cd04c2ac",
                 "SLES12SP1SAPHVM": "ami-a7907dc6",
-                "WS2012R2": "ami-760ff517"
+                "WS2012R2": "ami-281ad849"
             },
             "ap-northeast-2": {
                 "RHEL66HVM": "ami-fbb57b95",
@@ -638,14 +638,14 @@
                 "RHEL71HVM": "ami-86c10fe8",
                 "SLES12SP1HVM": "ami-5f24ee31",
                 "SLES12SP1SAPHVM": "ami-84c803ea",
-                "WS2012R2": "ami-f3f13b9d"
+                "WS2012R2": "ami-ab549ec5"
             },
             "ap-south-1": {
                 "RHEL66HVM": "ami-c2b0daad",
                 "RHEL71HVM": "ami-fcbfd593",
                 "SLES12SP1HVM": "ami-6e136601",
                 "SLES12SP1SAPHVM": "ami-43147e2c",
-                "WS2012R2": "ami-cad5bfa5"
+                "WS2012R2": "ami-4b7d0824"
             },
             "ap-southeast-1": {
                 "RHEL66HVM": "ami-108ab142",
@@ -655,7 +655,7 @@
                 "SLES12HVM": "ami-2620e645",
                 "SLES12SP1HVM": "ami-78f32d1b",
                 "SLES12SP1SAPHVM": "ami-ce3decad",
-                "WS2012R2": "ami-eceb348f"
+                "WS2012R2": "ami-d6f32ab5"
             },
             "ap-southeast-2": {
                 "RHEL66HVM": "ami-a788f09d",
@@ -665,7 +665,7 @@
                 "SLES12HVM": "ami-96ecb2f5",
                 "SLES12SP1HVM": "ami-1a5c6879",
                 "SLES12SP1SAPHVM": "ami-914967f2",
-                "WS2012R2": "ami-0b497c68"
+                "WS2012R2": "ami-47bf8b24"
             },
             "eu-central-1": {
                 "RHEL66HVM": "ami-30d9e02d",
@@ -675,7 +675,7 @@
                 "SLES12HVM": "ami-d7485abb",
                 "SLES12SP1HVM": "ami-0f4bbc60",
                 "SLES12SP1SAPHVM": "ami-a5d738ca",
-                "WS2012R2": "ami-3f649050"
+                "WS2012R2": "ami-1db84972"
             },
             "eu-west-1": {
                 "RHEL66HVM": "ami-cf3b47b8",
@@ -685,7 +685,7 @@
                 "SLES12HVM": "ami-c1f328b2",
                 "SLES12SP1HVM": "ami-d884edab",
                 "SLES12SP1SAPHVM": "ami-ded141ad",
-                "WS2012R2": "ami-6fd5b81c"
+                "WS2012R2": "ami-a8592cdb"
             },
             "sa-east-1": {
                 "RHEL66HVM": "ami-a19f1fbc",
@@ -695,7 +695,7 @@
                 "SLES12HVM": "ami-319e245d",
                 "SLES12SP1HVM": "ami-dcdd4bb0",
                 "SLES12SP1SAPHVM": "ami-0c820960",
-                "WS2012R2": "ami-f1be299d"
+                "WS2012R2": "ami-2a70e646"
             },
             "us-east-1": {
                 "RHEL66HVM": "ami-b18c62da",
@@ -705,7 +705,7 @@
                 "SLES12HVM": "ami-f2d5ad98",
                 "SLES12SP1HVM": "ami-166efc01",
                 "SLES12SP1SAPHVM": "ami-0277866f",
-                "WS2012R2": "ami-74a73263"
+                "WS2012R2": "ami-bd3ba0aa"
             },
             "us-west-1": {
                 "RHEL66HVM": "ami-63a84227",
@@ -715,7 +715,7 @@
                 "SLES12HVM": "ami-b56b05d5",
                 "SLES12SP1HVM": "ami-6c03400c",
                 "SLES12SP1SAPHVM": "ami-ccb5ceac",
-                "WS2012R2": "ami-6d0b4b0d"
+                "WS2012R2": "ami-69febd09"
             },
             "us-west-2": {
                 "RHEL66HVM": "ami-414b7271",
@@ -725,7 +725,7 @@
                 "SLES12HVM": "ami-d51607b4",
                 "SLES12SP1HVM": "ami-61ad6501",
                 "SLES12SP1SAPHVM": "ami-84857ce4",
-                "WS2012R2": "ami-2426e944"
+                "WS2012R2": "ami-1712d877"
             }
         }
     },
