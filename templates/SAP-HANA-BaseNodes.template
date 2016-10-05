@@ -603,14 +603,14 @@
         },
         "IfUseSLES": {
             "Fn::Equals": [
-        {
-            "Fn::FindInMap": [
-                "SAPAMINameMap",
-                    {
-                    "Ref": "MyOS"
-                    },
-                    "Code"
-                ]
+                {
+                    "Fn::FindInMap": [
+                        "SAPAMINameMap",
+                        {
+                            "Ref": "MyOS"
+                        },
+                        "Code"
+                    ]
                 },
                 "SLES"
             ]
@@ -618,18 +618,30 @@
     },
     "Mappings": {
         "SAPAMINameMap": {
-                "RedHatLinux66": {"Code":"RHEL66SAPHVM"},
-                "RedHatLinux67": {"Code":"RHEL67SAPHVM"},
-                "SuSELinux11SP4": {"Code":"SLES11SP4HVM"},
-                "SuSELinux12": {"Code":"SLES12HVM"},
-                "SuSELinux12SP1": {"Code":"SLES12SP1HVM"},
-                "SuSELinux12SP1ForSAP": {"Code":"SLES12SP1SAPHVM"}
+            "RedHatLinux66": {
+                "Code": "RHEL66SAPHVM"
             },
+            "RedHatLinux67": {
+                "Code": "RHEL67SAPHVM"
+            },
+            "SuSELinux11SP4": {
+                "Code": "SLES11SP4HVM"
+            },
+            "SuSELinux12": {
+                "Code": "SLES12HVM"
+            },
+            "SuSELinux12SP1": {
+                "Code": "SLES12SP1HVM"
+            },
+            "SuSELinux12SP1ForSAP": {
+                "Code": "SLES12SP1SAPHVM"
+            }
+        },
         "AWSAMIRegionMap": {
             "AMI": {
                 "RHEL66SAPHVM": "RHEL-6.6_HVM_GA-SAP-20150430-x86_64-2-Hourly2-GP2-b676039c-a4f8-4be7-9866-c804b1ade684-ami-905a54f8.2",
                 "RHEL67SAPHVM": "SAP-6.7_HVM-20160412-x86_64-1-Hourly2-GP2-b676039c-a4f8-4be7-9866-c804b1ade684-ami-afbdaec5.3",
-                "SLES11SP4HVM": "update",
+                "SLES11SP4HVM": "suse-sles-11-sp4-v20160804-hvm-ssd-x86_64",
                 "SLES12HVM": "suse-sles-12-v20151113-hvm-ssd-x86_64",
                 "SLES12SP1HVM": "suse-sles-12-sp1-v20160805-hvm-ssd-x86_64",
                 "SLES12SP1SAPHVM": "suse-sles-sap-12-sp1-v20160526-hvm-ssd-x86_64-2f28c0e5-af3e-4d22-95f1-6c1af645c209-ami-5c718031.3",
@@ -638,6 +650,7 @@
             "ap-northeast-1": {
                 "RHEL66SAPHVM": "ami-dce538dc",
                 "RHEL67SAPHVM": "ami-bded38dc",
+                "SLES11SP4HVM": "ami-1c73b47d",
                 "SLES12HVM": "ami-0a705064",
                 "SLES12SP1HVM": "ami-cd04c2ac",
                 "SLES12SP1SAPHVM": "ami-a7907dc6",
@@ -645,20 +658,23 @@
             },
             "ap-northeast-2": {
                 "RHEL66SAPHVM": "ami-0d9d5363",
-                "RHEL67SAPHVM": "ami-8414c1ea",                
+                "RHEL67SAPHVM": "ami-8414c1ea",
+                "SLES11SP4HVM": "ami-0b20ea65",
                 "SLES12SP1HVM": "ami-5f24ee31",
                 "SLES12SP1SAPHVM": "ami-84c803ea",
                 "WS2012R2": "ami-ee20f580"
             },
             "ap-south-1": {
+                "SLES11SP4HVM": "ami-12285d7d",
                 "SLES12SP1HVM": "ami-6e136601",
                 "SLES12SP1SAPHVM": "ami-43147e2c",
                 "WS2012R2": "ami-75fe8b1a"
             },
             "ap-southeast-1": {
                 "RHEL66SAPHVM": "ami-a6d5eef4",
-                "RHEL67SAPHVM": "ami-6c25fe0f",                
+                "RHEL67SAPHVM": "ami-6c25fe0f",
                 "SLES11SP3HVM": "ami-d8be958a",
+                "SLES11SP4HVM": "ami-81d806e2",
                 "SLES12HVM": "ami-2620e645",
                 "SLES12SP1HVM": "ami-78f32d1b",
                 "SLES12SP1SAPHVM": "ami-ce3decad",
@@ -666,7 +682,8 @@
             },
             "ap-southeast-2": {
                 "RHEL66SAPHVM": "ami-a74c349d",
-                "RHEL67SAPHVM": "ami-8a6051e9",                
+                "RHEL67SAPHVM": "ami-8a6051e9",
+                "SLES11SP4HVM": "ami-2f7f4b4c",
                 "SLES12HVM": "ami-96ecb2f5",
                 "SLES12SP1HVM": "ami-1a5c6879",
                 "SLES12SP1SAPHVM": "ami-914967f2",
@@ -674,7 +691,8 @@
             },
             "eu-central-1": {
                 "RHEL66SAPHVM": "ami-4c073e51",
-                "RHEL67SAPHVM": "ami-b90bf8d6",                
+                "RHEL67SAPHVM": "ami-b90bf8d6",
+                "SLES11SP4HVM": "ami-68788f07",
                 "SLES12HVM": "ami-d7485abb",
                 "SLES12SP1HVM": "ami-0f4bbc60",
                 "SLES12SP1SAPHVM": "ami-a5d738ca",
@@ -682,7 +700,8 @@
             },
             "eu-west-1": {
                 "RHEL66SAPHVM": "ami-99126fee",
-                "RHEL67SAPHVM": "ami-a9d7aada",                
+                "RHEL67SAPHVM": "ami-a9d7aada",
+                "SLES11SP4HVM": "ami-0f18717c",
                 "SLES12HVM": "ami-c1f328b2",
                 "SLES12SP1HVM": "ami-d884edab",
                 "SLES12SP1SAPHVM": "ami-ded141ad",
@@ -690,7 +709,8 @@
             },
             "sa-east-1": {
                 "RHEL66SAPHVM": "ami-b3e666ae",
-                "RHEL67SAPHVM": "ami-87e272eb",                
+                "RHEL67SAPHVM": "ami-87e272eb",
+                "SLES11SP4HVM": "ami-c61483aa",
                 "SLES12HVM": "ami-319e245d",
                 "SLES12SP1HVM": "ami-dcdd4bb0",
                 "SLES12SP1SAPHVM": "ami-0c820960",
@@ -698,7 +718,8 @@
             },
             "us-east-1": {
                 "RHEL66SAPHVM": "ami-23ea0648",
-                "RHEL67SAPHVM": "ami-819ce996",                
+                "RHEL67SAPHVM": "ami-819ce996",
+                "SLES11SP4HVM": "ami-0434a713",
                 "SLES12HVM": "ami-f2d5ad98",
                 "SLES12SP1HVM": "ami-166efc01",
                 "SLES12SP1SAPHVM": "ami-0277866f",
@@ -706,7 +727,8 @@
             },
             "us-west-1": {
                 "RHEL66SAPHVM": "ami-3311fa77",
-                "RHEL67SAPHVM": "ami-92561af2",                
+                "RHEL67SAPHVM": "ami-92561af2",
+                "SLES11SP4HVM": "ami-2fe0a04f",
                 "SLES12HVM": "ami-b56b05d5",
                 "SLES12SP1HVM": "ami-6c03400c",
                 "SLES12SP1SAPHVM": "ami-ccb5ceac",
@@ -714,7 +736,8 @@
             },
             "us-west-2": {
                 "RHEL66SAPHVM": "ami-15e1df25",
-                "RHEL67SAPHVM": "ami-3faa7a5f",                
+                "RHEL67SAPHVM": "ami-3faa7a5f",
+                "SLES11SP4HVM": "ami-e331f883",
                 "SLES12HVM": "ami-d51607b4",
                 "SLES12SP1HVM": "ami-61ad6501",
                 "SLES12SP1SAPHVM": "ami-84857ce4",
@@ -1774,13 +1797,13 @@
                             "Ref": "AWS::Region"
                         },
                         {
-                        "Fn::FindInMap": [
-                            "SAPAMINameMap",
-                             {
-                                 "Ref": "MyOS"
-                              },
-                              "Code"
-                        ]
+                            "Fn::FindInMap": [
+                                "SAPAMINameMap",
+                                {
+                                    "Ref": "MyOS"
+                                },
+                                "Code"
+                            ]
                         }
                     ]
                 },
@@ -1872,7 +1895,7 @@
                                                         "Ref": "MyOS"
                                                     },
                                                     "Code"
-                                            ]
+                                                ]
                                             }
                                         ]
                                     ]
@@ -2093,7 +2116,7 @@
                             "Fn::FindInMap": [
                                 "SAPAMINameMap",
                                 {
-                                "Ref": "MyOS"
+                                    "Ref": "MyOS"
                                 },
                                 "Code"
                             ]
@@ -2214,7 +2237,7 @@
                                                         "Ref": "MyOS"
                                                     },
                                                     "Code"
-                                            ]
+                                                ]
                                             }
                                         ]
                                     ]
@@ -2385,7 +2408,7 @@
                             "Fn::FindInMap": [
                                 "SAPAMINameMap",
                                 {
-                                "Ref": "MyOS"
+                                    "Ref": "MyOS"
                                 },
                                 "Code"
                             ]
@@ -2506,7 +2529,7 @@
                                                         "Ref": "MyOS"
                                                     },
                                                     "Code"
-                                            ]
+                                                ]
                                             }
                                         ]
                                     ]
@@ -2677,7 +2700,7 @@
                             "Fn::FindInMap": [
                                 "SAPAMINameMap",
                                 {
-                                "Ref": "MyOS"
+                                    "Ref": "MyOS"
                                 },
                                 "Code"
                             ]
@@ -2798,7 +2821,7 @@
                                                         "Ref": "MyOS"
                                                     },
                                                     "Code"
-                                            ]
+                                                ]
                                             }
                                         ]
                                     ]
@@ -2969,7 +2992,7 @@
                             "Fn::FindInMap": [
                                 "SAPAMINameMap",
                                 {
-                                "Ref": "MyOS"
+                                    "Ref": "MyOS"
                                 },
                                 "Code"
                             ]
@@ -3090,7 +3113,7 @@
                                                         "Ref": "MyOS"
                                                     },
                                                     "Code"
-                                            ]
+                                                ]
                                             }
                                         ]
                                     ]
@@ -3261,7 +3284,7 @@
                             "Fn::FindInMap": [
                                 "SAPAMINameMap",
                                 {
-                                "Ref": "MyOS"
+                                    "Ref": "MyOS"
                                 },
                                 "Code"
                             ]
@@ -3382,7 +3405,7 @@
                                                         "Ref": "MyOS"
                                                     },
                                                     "Code"
-                                            ]
+                                                ]
                                             }
                                         ]
                                     ]
