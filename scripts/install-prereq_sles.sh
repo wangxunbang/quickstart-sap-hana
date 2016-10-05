@@ -55,10 +55,10 @@ EOF
 }
 
 check_issles12() {
-    SUSE12=$(isSUSE12)
-    SUSE12SP1=$(isSUSE12SP1)
+    SUSE12=$(isSLES12)
+    SUSE12SP1=$(isSLES12SP1)
 
-    if [ "$SUSE12" -eq 1 -o "$SUSE12SP1" -eq 1 ]
+    if [ "$SLES12" -eq 1 -o "$SLES12SP1" -eq 1 ]
     then
     	echo 1
     else
@@ -415,7 +415,7 @@ fi
 
 log "## Completed HANA Prerequisites installation ## "
 
-if (( $(isSUSE) == 1 )); then
+if (( $(isSLES) == 1 )); then
     #USE_OPENSUSE_NTFS=1
     if [ -z "${USE_OPENSUSE_NTFS}" ] ; then
     	zypper -n install gcc
@@ -454,11 +454,11 @@ fi
 # This version of libopenssl is provided with the so called Legacy Module of SLE 12. When you added the software repository as described above install you can install the libopenssl 0.9.8 via zypper, yast2 etc. e.g. by calling
 # ------------------------------------------------------------------
 
-if (( $(isSUSE12) == 1 )); then
+if (( $(isSLES12) == 1 )); then
 	zypper -n in libopenssl0_9_8 | tee -a ${HANA_LOG_FILE}
 fi
 
-if (( $(isSUSE12SP1) == 1 )); then
+if (( $(isSLES12SP1) == 1 )); then
 	zypper -n in libopenssl0_9_8 | tee -a ${HANA_LOG_FILE}
 fi
 

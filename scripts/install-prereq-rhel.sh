@@ -212,7 +212,7 @@ X1=$(check_instancetype)
 KV=$(uname -r)
 
 #Check to see if instance type is X1 and Kernel version is supported 
-if [ $(check_kernel) == 0 -a $(check_instancetype) == 1 ] 
+if [ $(check_kernel) == 0 -a $(check_instancetype) == 1 -a "$MyOS" == "RHEL66SAPHVM" ] 
 then
     log "Calling signal-failure.sh from $0 @ `date` with INCOMPATIBLE parameter"
     log "Instance Type = X1: $X1 and O.S. is not supported with X1: $KV" 
@@ -240,7 +240,7 @@ then
     #Install unrar and exit
     # ------------------------------------------------------------------
     #   At the time of writing, marketplace RHEL and marketplace SUSE
-    #       did not have unrar package. As a workaround, we download as below
+    #   did not have unrar package. As a workaround, we download as below
     #   TODO: This is a temporary workaround and needs to be fixed in AMI
     # ------------------------------------------------------------------
     log "WARNING: Downloading from repoforge. Prefer prebaked AMIs"

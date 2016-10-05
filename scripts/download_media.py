@@ -4,7 +4,7 @@ import pprint
 import subprocess
 import json
 
-aws_cmd = '/usr/local/bin/aws --debug'
+aws_cmd = '/usr/local/bin/aws'
 extract_cmd = "/usr/bin/unrar x exe_file extract_dir"
 find_cmd = "/usr/bin/find compressed_dir  -name '*.exe' "
 
@@ -56,7 +56,7 @@ def get_mystack_params():
 def download_s3(s3path,odir):
     print 'Will download ' + s3path + ' To ' + odir
     cmd = aws_cmd
-    cmd = cmd + ' s3 cp --recursive ' + s3path
+    cmd = cmd + ' s3 sync ' + s3path
     cmd = cmd + ' ' + odir
     if not os.path.exists(odir):
         os.makedirs(odir)
@@ -64,7 +64,6 @@ def download_s3(s3path,odir):
     output = exe_cmd(cmd)
     cmd = 'chmod 755 ' + odir + '/*.exe'
     output = exe_cmd(cmd)
-
 
 def main():
     parser = argparse.ArgumentParser(description='Download HANA Media (No extraction)')

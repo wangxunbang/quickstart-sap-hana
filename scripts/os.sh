@@ -5,9 +5,9 @@
 source /root/install/config.sh
 
 isRHEL() {
-    if [ "$MyOS" == "RHEL" ]; then
+    if [ "$MyOS" == "RHEL66SAPHVM" ]; then
         echo 1
-    elif [ "$MyOS" == "RHEL6" ]; then
+    elif [ "$MyOS" == "RHEL67SAPHVM" ]; then
     	echo 1
     elif [ "$MyOS" == "RHEL7" ]; then
     	echo 1
@@ -33,11 +33,11 @@ isRHEL7() {
 }
 
 isSLES() {
-    if [ "$MyOS" == "SLES11SP4" ]; then
+    if [ "$MyOS" == "SLES11SP4HVM" ]; then
       echo 1
-    elif [ "$MyOS" == "SLES12" ]; then
+    elif [ "$MyOS" == "SLES12HVM" ]; then
       echo 1
-    elif [ "$MyOS" == "SLES12SP1" ]; then
+    elif [ "$MyOS" == "SLES12SP1HVM" ]; then
       echo 1
     else
       echo 0
@@ -45,7 +45,7 @@ isSLES() {
 }
 
 isSLES11SP4() {
-    if [ "$MyOS" == "SLES11SP4" ]; then
+    if [ "$MyOS" == "SLES11SP4HVM" ]; then
       echo 1
     else
       echo 0
@@ -53,7 +53,7 @@ isSLES11SP4() {
 }
 
 isSLES12() {
-    if [ "$MyOS" == "SLES12" ]; then
+    if [ "$MyOS" == "SLES12HVM" ]; then
       echo 1
     else
       echo 0
@@ -61,7 +61,7 @@ isSLES12() {
 }
 
 isSLES12SP1() {
-    if [ "$MyOS" == "SLES12SP1" ]; then
+    if [ "$MyOS" == "SLES12SP1HVM" ]; then
       echo 1
     else
       echo 0

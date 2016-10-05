@@ -102,12 +102,13 @@
         "MyOS": {
             "Type": "String",
             "Description": "Operating system (SLES or RHEL) and version for master/worker nodes.",
-            "Default": "SLES12SP1",
+            "Default": "SuSELinux12SP1",
             "AllowedValues": [
-                "SLES11SP4",
-                "SLES12",
-                "SLES12SP1",
-                "RHEL6"
+                "SuSELinux11SP4",
+                "SuSELinux12",
+                "SuSELinux12SP1",
+                "RedHatLinux66",
+                "RedHatLinux67"
             ]
         },
         "MyInstanceType": {

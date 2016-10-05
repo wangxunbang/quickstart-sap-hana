@@ -5,7 +5,7 @@
     },
     {
         "ParameterKey": "AvailabilityZone",
-        "ParameterValue": "us-west-2a"
+        "ParameterValue": "$[alfred_genaz_1]"
     },
     {
         "ParameterKey": "BASTIONInstanceType",
@@ -25,7 +25,7 @@
     },
     {
         "ParameterKey": "HANAInstallMedia",
-        "ParameterValue": ""
+        "ParameterValue": "s3://quickstart-ci-media/sap/hana/sp12/"
     },
     {
         "ParameterKey": "HANAMasterHostname",
@@ -33,7 +33,7 @@
     },
     {
         "ParameterKey": "HANAMasterPass",
-        "ParameterValue": "NEED_VALUE"
+        "ParameterValue": "$[alfred_genpass_16]"
     },
     {
         "ParameterKey": "HANAWorkerHostname",
@@ -53,7 +53,7 @@
     },
     {
         "ParameterKey": "KeyName",
-        "ParameterValue": "home"
+        "ParameterValue": "cikey"
     },
     {
         "ParameterKey": "MyInstanceType",
@@ -61,7 +61,7 @@
     },
     {
         "ParameterKey": "MyOS",
-        "ParameterValue": "SLES12SP1"
+        "ParameterValue": "SuSELinux12SP1"
     },
     {
         "ParameterKey": "PlacementGroupName",
@@ -72,16 +72,12 @@
         "ParameterValue": "10.0.1.0/24"
     },
     {
-        "ParameterKey": "PrivateBucket",
-        "ParameterValue": "quickstart-reference/sap/hana/latest"
-    },
-    {
         "ParameterKey": "RDPInstanceType",
         "ParameterValue": "c4.large"
     },
     {
         "ParameterKey": "RemoteAccessCIDR",
-        "ParameterValue": "0.0.0.0/0"
+        "ParameterValue": "10.0.0.0/16"
     },
     {
         "ParameterKey": "SAPInstanceNum",
