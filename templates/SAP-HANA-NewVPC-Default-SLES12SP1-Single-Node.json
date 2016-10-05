@@ -25,7 +25,7 @@
     },
     {
         "ParameterKey": "HANAInstallMedia",
-        "ParameterValue": "s3://quickstart-ci-media/sap/hana/sp12/"
+        "ParameterValue": "s3://quickstart-ci-media/sap/hana/sps12/"
     },
     {
         "ParameterKey": "HANAMasterHostname",
