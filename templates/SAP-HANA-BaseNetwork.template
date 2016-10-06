@@ -61,13 +61,13 @@
     "Mappings": {
         "AWSAMIRegionMap": {
             "AMI": {
-                "AMZNLINUX": "update"
+                "AMZNLINUX": "amzn-ami-hvm-2016.03.3.x86_64-gp2"
             },
             "ap-northeast-1": {
                 "AMZNLINUX": "ami-374db956"
             },
             "ap-northeast-2": {
-                "AMZNLINUX": "ami-ffbdd790"
+                "AMZNLINUX": "ami-2b408b45"
             },
             "ap-south-1": {
                 "AMZNLINUX": "ami-ffbdd790"
