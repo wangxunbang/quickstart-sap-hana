@@ -152,6 +152,7 @@
                 "r3.8xlarge",
                 "r3.4xlarge",
                 "r3.2xlarge",
+                "x1.16xlarge",                
                 "x1.32xlarge"
             ]
         },
@@ -639,13 +640,13 @@
         },
         "AWSAMIRegionMap": {
             "AMI": {
-                "RHEL66SAPHVM": "RHEL-6.6_HVM_GA-SAP-20150430-x86_64-2-Hourly2-GP2-b676039c-a4f8-4be7-9866-c804b1ade684-ami-905a54f8.2",
-                "RHEL67SAPHVM": "SAP-6.7_HVM-20160412-x86_64-1-Hourly2-GP2-b676039c-a4f8-4be7-9866-c804b1ade684-ami-afbdaec5.3",
-                "SLES11SP4HVM": "suse-sles-11-sp4-v20160804-hvm-ssd-x86_64",
-                "SLES12HVM": "suse-sles-12-v20151113-hvm-ssd-x86_64",
-                "SLES12SP1HVM": "suse-sles-12-sp1-v20160805-hvm-ssd-x86_64",
-                "SLES12SP1SAPHVM": "suse-sles-sap-12-sp1-v20160526-hvm-ssd-x86_64-2f28c0e5-af3e-4d22-95f1-6c1af645c209-ami-5c718031.3",
-                "WS2012R2": "Windows_Server-2012-R2_RTM-English-64Bit-Base-2016.09.14"
+                "RHEL66SAPHVM": "UpdateRHEL-6.6_HVM_GA-SAP-20150430-x86_64-2-Hourly2-GP2-b676039c-a4f8-4be7-9866-c804b1ade684-ami-905a54f8.2",
+                "RHEL67SAPHVM": "UpdateSAP-6.7_HVM-20160412-x86_64-1-Hourly2-GP2-b676039c-a4f8-4be7-9866-c804b1ade684-ami-afbdaec5.3",
+                "SLES11SP4HVM": "Updatesuse-sles-11-sp4-v20160804-hvm-ssd-x86_64",
+                "SLES12HVM": "Updatesuse-sles-12-v20151113-hvm-ssd-x86_64",
+                "SLES12SP1HVM": "Updatesuse-sles-12-sp1-v20160805-hvm-ssd-x86_64",
+                "SLES12SP1SAPHVM": "Updatesuse-sles-sap-12-sp1-v20160526-hvm-ssd-x86_64-2f28c0e5-af3e-4d22-95f1-6c1af645c209-ami-5c718031.3",
+                "WS2012R2": "UpdateWindows_Server-2012-R2_RTM-English-64Bit-Base-2016.09.14"
             },
             "ap-northeast-1": {
                 "RHEL66SAPHVM": "ami-dce538dc",
@@ -673,7 +674,6 @@
             "ap-southeast-1": {
                 "RHEL66SAPHVM": "ami-a6d5eef4",
                 "RHEL67SAPHVM": "ami-6c25fe0f",
-                "SLES11SP3HVM": "ami-d8be958a",
                 "SLES11SP4HVM": "ami-81d806e2",
                 "SLES12HVM": "ami-2620e645",
                 "SLES12SP1HVM": "ami-78f32d1b",
@@ -717,6 +717,15 @@
                 "WS2012R2": "ami-8e2fbfe2"
             },
             "us-east-1": {
+                "RHEL66SAPHVM": "ami-23ea0648",
+                "RHEL67SAPHVM": "ami-819ce996",
+                "SLES11SP4HVM": "ami-0434a713",
+                "SLES12HVM": "ami-f2d5ad98",
+                "SLES12SP1HVM": "ami-166efc01",
+                "SLES12SP1SAPHVM": "ami-0277866f",
+                "WS2012R2": "ami-ee7805f9"
+            },
+            "us-east-2": {
                 "RHEL66SAPHVM": "ami-23ea0648",
                 "RHEL67SAPHVM": "ami-819ce996",
                 "SLES11SP4HVM": "ami-0434a713",

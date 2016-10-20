@@ -119,6 +119,7 @@
                 "r3.8xlarge",
                 "r3.4xlarge",
                 "r3.2xlarge",
+                "x1.16xlarge",                
                 "x1.32xlarge"
             ]
         },
@@ -392,6 +393,9 @@
             "us-east-1": {
                 "AWSNAT": "ami-4868ab25"
             },
+            "us-east-2": {
+                "AWSNAT": "ami-4868ab25"
+            },
             "us-west-1": {
                 "AWSNAT": "ami-004b0f60"
             },
@@ -435,7 +439,7 @@
         "BaseNodes": {
             "Type": "AWS::CloudFormation::Stack",
             "Properties": {
-                "TemplateURL": "https://s3.amazonaws.com/quickstart-reference/sap/hana/latest/templates/SAP-HANA-BaseNodes.template",
+                "TemplateURL": "https://s3.amazonaws.com/sradhak/sap/hana/latest/templates/SAP-HANA-BaseNodes.template",
                 "Parameters": {
                     "PrivSubCIDR": {
                         "Ref": "PrivSubCIDR"

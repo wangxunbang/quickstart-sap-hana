@@ -12,7 +12,8 @@ find_cmd = "/usr/bin/find compressed_dir  -name '*.exe' "
 def exe_cmd(cmd,cwd=None):
     if cwd == None:
         proc = subprocess.Popen([cmd], stdout=subprocess.PIPE, shell=True)
-        proc.wait()
+#       Removed proc.wait() after S3transfer is introduced for S3 CP / Sync	
+#        proc.wait()
         (out, err) = proc.communicate()
         output = {}
         output['out'] = out
@@ -20,7 +21,8 @@ def exe_cmd(cmd,cwd=None):
         return output
     else:
         proc = subprocess.Popen([cmd], stdout=subprocess.PIPE, shell=True,cwd=cwd)
-        proc.wait()
+#       Removed proc.wait() after S3transfer is introduced for S3 CP / Sync
+#        proc.wait()
         (out, err) = proc.communicate()
         output = {}
         output['out'] = out
@@ -74,7 +76,8 @@ def main():
     read_config()
     params = get_mystack_params()
     s3path = params['HANAInstallMedia']
-    compressed_dir = odir + '/' + 'compressed'
+#    compressed_dir = odir + '/' + 'compressed'
+    compressed_dir = odir + 'compressed'
     download_s3(s3path,compressed_dir)
 
 if __name__ == "__main__":

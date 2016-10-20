@@ -211,12 +211,22 @@ X1=$(check_instancetype)
 #Check the O.S. Version
 KV=$(uname -r)
 
-#Check to see if instance type is X1 and Kernel version is supported 
+#Check to see if instance type is X1 and RHEL version is supported 
 if [ $(check_kernel) == 0 -a $(check_instancetype) == 1 -a "$MyOS" == "RHEL66SAPHVM" ] 
 then
-    log "Calling signal-failure.sh from $0 @ `date` with INCOMPATIBLE parameter"
-    log "Instance Type = X1: $X1 and O.S. is not supported with X1: $KV" 
-    /root/install/signal-failure.sh "INCOMPATIBLE" 
+    log "Calling signal-failure.sh from $0 @ `date` with INCOMPATIBLE_RHEL parameter"
+    log "Instance Type = X1: $X1 and RHEL 6.6 is not supported with X1: $KV" 
+    /root/install/signal-failure.sh "INCOMPATIBLE_RHEL" 
+    touch "$SIG_FLAG_FILE"
+    sleep 300
+    exit 1
+fi
+# Check to see if RHEL 6.x is used with X1 scale out. 
+if [ "$MyOS" == "RHEL67SAPHVM" -a $(check_instancetype) == 1 -a $HostCount -gt 1 ] 
+then
+    log "Calling signal-failure.sh from $0 @ `date` with INCOMPATIBLE_RHEL_SCALEOUT parameter"
+    log "Instance Type = X1: $X1 and RHEL 6.7 is not supported with X1 Scaleout: $KV" 
+    /root/install/signal-failure.sh "INCOMPATIBLE_RHEL_SCALEOUT" 
     touch "$SIG_FLAG_FILE"
     sleep 300
     exit 1

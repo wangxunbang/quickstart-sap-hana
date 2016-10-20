@@ -1,0 +1,98 @@
+[
+    {
+        "ParameterKey": "AutoRecovery",
+        "ParameterValue": "Yes"
+    },
+    {
+        "ParameterKey": "AvailabilityZone",
+        "ParameterValue": "$[alfred_genaz_1]"
+    },
+    {
+        "ParameterKey": "BASTIONInstanceType",
+        "ParameterValue": "t2.small"
+    },
+    {
+        "ParameterKey": "DMZCIDR",
+        "ParameterValue": "10.0.2.0/24"
+    },
+    {
+        "ParameterKey": "DomainName",
+        "ParameterValue": "local"
+    },
+    {
+        "ParameterKey": "Encryption",
+        "ParameterValue": "No"
+    },
+    {
+        "ParameterKey": "HANAInstallMedia",
+        "ParameterValue": "s3://quickstart-ci-media/sap/hana/sps12/"
+    },
+    {
+        "ParameterKey": "HANAMasterHostname",
+        "ParameterValue": "imdbmaster"
+    },
+    {
+        "ParameterKey": "HANAMasterPass",
+        "ParameterValue": "$[alfred_genpass_16]"
+    },
+    {
+        "ParameterKey": "HANAWorkerHostname",
+        "ParameterValue": "imdbworker"
+    },
+    {
+        "ParameterKey": "HostCount",
+        "ParameterValue": "1"
+    },
+    {
+        "ParameterKey": "InstallHANA",
+        "ParameterValue": "Yes"
+    },
+    {
+        "ParameterKey": "InstallRDPInstance",
+        "ParameterValue": "No"
+    },
+    {
+        "ParameterKey": "KeyName",
+        "ParameterValue": "cikey"
+    },
+    {
+        "ParameterKey": "MyInstanceType",
+        "ParameterValue": "x1.16xlarge"
+    },
+    {
+        "ParameterKey": "MyOS",
+        "ParameterValue": "SuSELinux12SP1"
+    },
+    {
+        "ParameterKey": "PlacementGroupName",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "PrivSubCIDR",
+        "ParameterValue": "10.0.1.0/24"
+    },
+    {
+        "ParameterKey": "RDPInstanceType",
+        "ParameterValue": "c4.large"
+    },
+    {
+        "ParameterKey": "RemoteAccessCIDR",
+        "ParameterValue": "10.0.0.0/16"
+    },
+    {
+        "ParameterKey": "SAPInstanceNum",
+        "ParameterValue": "00"
+    },
+    {
+        "ParameterKey": "SID",
+        "ParameterValue": "HDB"
+    },
+    {
+        "ParameterKey": "VPCCIDR",
+        "ParameterValue": "10.0.0.0/16"
+    },
+    {
+        "ParameterKey": "VolumeType",
+        "ParameterValue": "gp2"
+    }
+]

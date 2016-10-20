@@ -90,6 +90,9 @@
             "us-east-1": {
                 "AMZNLINUX": "ami-6869aa05"
             },
+            "us-east-2": {
+                "AMZNLINUX": "ami-6869aa05"
+            },
             "us-west-1": {
                 "AMZNLINUX": "ami-31490d51"
             },
