@@ -10,24 +10,12 @@ find_cmd = "/usr/bin/find compressed_dir  -name '*.exe' "
 
 
 def exe_cmd(cmd,cwd=None):
-    if cwd == None:
-        proc = subprocess.Popen([cmd], stdout=subprocess.PIPE, shell=True)
-#       Removed proc.wait() after S3transfer is introduced for S3 CP / Sync	
-#        proc.wait()
-        (out, err) = proc.communicate()
-        output = {}
-        output['out'] = out
-        output['err'] = err
-        return output
-    else:
-        proc = subprocess.Popen([cmd], stdout=subprocess.PIPE, shell=True,cwd=cwd)
-#       Removed proc.wait() after S3transfer is introduced for S3 CP / Sync
-#        proc.wait()
-        (out, err) = proc.communicate()
-        output = {}
-        output['out'] = out
-        output['err'] = err
-        return output
+    proc = subprocess.Popen([cmd], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, cwd=cwd)
+    (out, err) = proc.communicate()
+    output = {}
+    output['out'] = out
+    output['err'] = err
+    return output
 
 def read_config():
     command = ['bash', '-c', 'source /root/install/config.sh && env']
