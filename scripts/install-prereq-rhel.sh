@@ -176,23 +176,23 @@ start_oss_configs() {
 
     X1=$(check_instancetype)
 
-    if [ "$X1" -eq 1 ]
-    then
-	    #Set c-state
-	    cpupower frequency-set -g performance > /dev/null
-	    echo "cpupower frequency-set -g performance" >> /etc/init.d/boot.local
+#    if [ "$X1" -eq 1 ]
+#    then
+#Set c-state - Not required
+#	    cpupower frequency-set -g performance > /dev/null
+#	    echo "cpupower frequency-set -g performance" >> /etc/init.d/boot.local
 	  
 	    #Stay in c-state 2 (Best Performance)
-	    cpupower idle-set -d 6 > /dev/null; cpupower idle-set -d 5 > /dev/null
-	    cpupower idle-set -d 4 > /dev/null; cpupower idle-set -d 3 > /dev/null
-	    cpupower idle-set -d 2 > /dev/null; cpupower idle-set -d 1 > /dev/null
-	    echo "cpupower idle-set -d 6 > /dev/null; cpupower idle-set -d 5 > /dev/null" >> /etc/init.d/boot.local 
-	    echo "cpupower idle-set -d 4 > /dev/null; cpupower idle-set -d 3 > /dev/null" >> /etc/init.d/boot.local 
-	    echo "cpupower idle-set -d 2 > /dev/null; cpupower idle-set -d 1 > /dev/null" >> /etc/init.d/boot.local 
-
-	    echo "#END: This section inserted by AWS SAP HANA Quickstart" >> /etc/init.d/boot.local
-	    echo "###################" >> /etc/init.d/boot.local
-    fi
+#	    cpupower idle-set -d 6 > /dev/null; cpupower idle-set -d 5 > /dev/null
+#	    cpupower idle-set -d 4 > /dev/null; cpupower idle-set -d 3 > /dev/null
+#	    cpupower idle-set -d 2 > /dev/null; cpupower idle-set -d 1 > /dev/null
+#	    echo "cpupower idle-set -d 6 > /dev/null; cpupower idle-set -d 5 > /dev/null" >> /etc/init.d/boot.local 
+#	    echo "cpupower idle-set -d 4 > /dev/null; cpupower idle-set -d 3 > /dev/null" >> /etc/init.d/boot.local 
+#	    echo "cpupower idle-set -d 2 > /dev/null; cpupower idle-set -d 1 > /dev/null" >> /etc/init.d/boot.local 
+#
+#	    echo "#END: This section inserted by AWS SAP HANA Quickstart" >> /etc/init.d/boot.local
+#	    echo "###################" >> /etc/init.d/boot.local
+#    fi
 
 #error check and return
 }
