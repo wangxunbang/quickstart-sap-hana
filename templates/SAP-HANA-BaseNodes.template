@@ -152,6 +152,10 @@
                 "r3.8xlarge",
                 "r3.4xlarge",
                 "r3.2xlarge",
+                "r4.16xlarge",
+                "r4.8xlarge",
+                "r4.4xlarge",
+                "r4.2xlarge",
                 "x1.16xlarge",
                 "x1.32xlarge"
             ]
