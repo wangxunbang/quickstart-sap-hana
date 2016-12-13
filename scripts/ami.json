@@ -1,76 +1,76 @@
 {
-	"MasterHANAAMI": {
-		"ap-northeast-1": {
-			"RHEL": "ami-9ec01c9e",
-			"RHEL 6": "ami-9ec01c9e",
-			"RHEL 7": "ami-4eee514e",
-			"SUSE": "ami-8cb8a68d",
-			"SUSE 12": "ami-7a597b14",
-			"SUSE 12 SP1": "ami-e9786d87"
-		},
-		"ap-southeast-1": {
-			"RHEL": "ami-108ab142",
-			"RHEL 6": "ami-108ab142",
-			"RHEL 7": "ami-56e2ee04",
-			"SUSE": "ami-d8be958a",
-			"SUSE 12": "ami-0dd6176e",
-			"SUSE 12 SP1": "ami-407db623"
-		},
-		"ap-southeast-2": {
-			"RHEL": "ami-a788f09d",
-			"RHEL 6": "ami-a788f09d",
-			"RHEL 7": "ami-af9ede95",
-			"SUSE": "ami-810d79bb",
-			"SUSE 12": "ami-da9bc2b9",
-			"SUSE 12 SP1": "ami-dbcfefb8"
-		},
-		"eu-central-1": {
-			"RHEL": "ami-30d9e02d",
-			"RHEL 6": "ami-30d9e02d",
-			"RHEL 7": "ami-38d2d625",
-			"SUSE": "ami-ea0033f7",
-			"SUSE 12": "ami-7bcddf17",
-			"SUSE 12 SP1": "ami-a0ad4bcf"
-		},
-		"eu-west-1": {
-			"RHEL": "ami-cf3b47b8",
-			"RHEL 6": "ami-cf3b47b8",
-			"RHEL 7": "ami-a42a7bd3",
-			"SUSE": "ami-c9c448be",
-			"SUSE 12": "ami-3cad084f",
-			"SUSE 12 SP1": "ami-51901422"
-		},
-		"sa-east-1": {
-			"RHEL": "ami-a19f1fbc",
-			"RHEL 6": "ami-a19f1fbc",
-			"RHEL 7": "ami-b7e66faa",
-			"SUSE": "ami-67912d7a",
-			"SUSE 12": "ami-8ec84de2",
-			"SUSE 12 SP1": "ami-8b8408e7"
-		},
-		"us-east-1": {
-			"RHEL": "ami-b18c62da",
-			"RHEL 6": "ami-b18c62da",
-			"RHEL 7": "ami-dbc96ab0",
-			"SUSE": "ami-b28fcbda",
-			"SUSE 12": "ami-4b034421",
-			"SUSE 12 SP1": "ami-ab5559c1"
-		},
-		"us-west-1": {
-			"RHEL": "ami-63a84227",
-			"RHEL 6": "ami-63a84227",
-			"RHEL 7": "ami-c1996685",
-			"SUSE": "ami-b48891f1",
-			"SUSE 12": "ami-7d3c551d",
-			"SUSE 12 SP1": "ami-acf183cc"
-		},
-		"us-west-2": {
-			"RHEL": "ami-414b7271",
-			"RHEL 6": "ami-414b7271",
-			"RHEL 7": "ami-c15a52f1",
-			"SUSE": "ami-99f2aba9",
-			"SUSE 12": "ami-d2f0e0b3",
-			"SUSE 12 SP1": "ami-931ef6f3"
-		}
-	}
+    "MasterHANAAMI": {
+        "ap-northeast-1": {
+            "RHEL": "ami-9ec01c9e",
+            "RHEL 6": "ami-9ec01c9e",
+            "RHEL 7": "ami-4eee514e",
+            "SUSE": "ami-8cb8a68d",
+            "SUSE 12": "ami-7a597b14",
+            "SUSE 12 SP1": "ami-e9786d87"
+        },
+        "ap-southeast-1": {
+            "RHEL": "ami-108ab142",
+            "RHEL 6": "ami-108ab142",
+            "RHEL 7": "ami-56e2ee04",
+            "SUSE": "ami-d8be958a",
+            "SUSE 12": "ami-0dd6176e",
+            "SUSE 12 SP1": "ami-407db623"
+        },
+        "ap-southeast-2": {
+            "RHEL": "ami-a788f09d",
+            "RHEL 6": "ami-a788f09d",
+            "RHEL 7": "ami-af9ede95",
+            "SUSE": "ami-810d79bb",
+            "SUSE 12": "ami-da9bc2b9",
+            "SUSE 12 SP1": "ami-dbcfefb8"
+        },
+        "eu-central-1": {
+            "RHEL": "ami-30d9e02d",
+            "RHEL 6": "ami-30d9e02d",
+            "RHEL 7": "ami-38d2d625",
+            "SUSE": "ami-ea0033f7",
+            "SUSE 12": "ami-7bcddf17",
+            "SUSE 12 SP1": "ami-a0ad4bcf"
+        },
+        "eu-west-1": {
+            "RHEL": "ami-cf3b47b8",
+            "RHEL 6": "ami-cf3b47b8",
+            "RHEL 7": "ami-a42a7bd3",
+            "SUSE": "ami-c9c448be",
+            "SUSE 12": "ami-3cad084f",
+            "SUSE 12 SP1": "ami-51901422"
+        },
+        "sa-east-1": {
+            "RHEL": "ami-a19f1fbc",
+            "RHEL 6": "ami-a19f1fbc",
+            "RHEL 7": "ami-b7e66faa",
+            "SUSE": "ami-67912d7a",
+            "SUSE 12": "ami-8ec84de2",
+            "SUSE 12 SP1": "ami-8b8408e7"
+        },
+        "us-east-1": {
+            "RHEL": "ami-b18c62da",
+            "RHEL 6": "ami-b18c62da",
+            "RHEL 7": "ami-dbc96ab0",
+            "SUSE": "ami-b28fcbda",
+            "SUSE 12": "ami-4b034421",
+            "SUSE 12 SP1": "ami-ab5559c1"
+        },
+        "us-west-1": {
+            "RHEL": "ami-63a84227",
+            "RHEL 6": "ami-63a84227",
+            "RHEL 7": "ami-c1996685",
+            "SUSE": "ami-b48891f1",
+            "SUSE 12": "ami-7d3c551d",
+            "SUSE 12 SP1": "ami-acf183cc"
+        },
+        "us-west-2": {
+            "RHEL": "ami-414b7271",
+            "RHEL 6": "ami-414b7271",
+            "RHEL 7": "ami-c15a52f1",
+            "SUSE": "ami-99f2aba9",
+            "SUSE 12": "ami-d2f0e0b3",
+            "SUSE 12 SP1": "ami-931ef6f3"
+        }
+    }
 }
