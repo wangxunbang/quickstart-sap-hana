@@ -14,20 +14,28 @@ global:
     # - us-east-1
     # - us-west-1
     # - us-east-2
-    - us-west-2
+    # - us-west-2
   reporting: true
 tests:
   default-sles12sp1-single:
     parameter_input: SAP-HANA-NewVPC-Default-SLES12SP1-Single-Node.json
+    regions:
+      - us-west-2
     template_file: SAP-HANA-NewVPC.template
   default-rhel67-single:
     parameter_input: SAP-HANA-NewVPC-Default-RHEL67-Single-Node.json
+    regions:
+      - us-east-2
     template_file: SAP-HANA-NewVPC.template
   default-sles12sp1-single-x1:
     parameter_input: SAP-HANA-NewVPC-Default-SLES12SP1-Single-Node-X1.json
+    regions:
+      - us-west-2    
     template_file: SAP-HANA-NewVPC.template
   default-rhel67-single-x1:
     parameter_input: SAP-HANA-NewVPC-Default-RHEL67-Single-Node-X1.json
+    regions:
+      - us-east-2
     template_file: SAP-HANA-NewVPC.template
 #  default-sles12sp1-multi:
 #    parameter_input: SAP-HANA-NewVPC-Default-SLES12SP1-Multi-Node.json
