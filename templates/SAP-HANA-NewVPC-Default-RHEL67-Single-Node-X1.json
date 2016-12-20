@@ -61,7 +61,7 @@
     },
     {
         "ParameterKey": "MyOS",
-        "ParameterValue": "RedHatLinux67"
+        "ParameterValue": "RedHatLinux72"
     },
     {
         "ParameterKey": "PlacementGroupName",

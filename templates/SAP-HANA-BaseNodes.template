@@ -745,7 +745,7 @@
             },
             "us-east-2": {
                 "RHEL66SAPHVM": "ami-23ea0648",
-                "RHEL67SAPHVM": "ami-819ce996",
+                "RHEL67SAPHVM": "ami-5cb7ec39",
                 "RHEL72SAPHVM": "ami-ddc993b8",                
                 "SLES11SP4HVM": "ami-4af2a92f",
                 "SLES12HVM": "ami-f2d5ad98",
