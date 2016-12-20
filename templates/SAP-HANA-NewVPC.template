@@ -108,7 +108,8 @@
                 "SuSELinux12",
                 "SuSELinux12SP1",
                 "RedHatLinux66",
-                "RedHatLinux67"
+                "RedHatLinux67",
+                "RedHatLinux72"
             ]
         },
         "MyInstanceType": {
