@@ -20,7 +20,8 @@ log `date` BEGIN install-aws
 wget https://s3.amazonaws.com/aws-cli/awscli-bundle.zip | tee -a ${HANA_LOG_FILE}
 zypper -n install unzip
 unzip awscli-bundle.zip | tee -a ${HANA_LOG_FILE}
-sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws | tee -a ${HANA_LOG_FILE}
+#sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws | tee -a ${HANA_LOG_FILE}
+/root/install/awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws | tee -a ${HANA_LOG_FILE}
 
 
 # ------------------------------------------------------------------

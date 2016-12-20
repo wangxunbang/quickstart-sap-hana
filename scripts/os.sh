@@ -9,7 +9,7 @@ isRHEL() {
         echo 1
     elif [ "$MyOS" == "RHEL67SAPHVM" ]; then
     	echo 1
-    elif [ "$MyOS" == "RHEL7" ]; then
+    elif [ "$MyOS" == "RHEL72SAPHVM" ]; then
     	echo 1
     else
       echo 0
@@ -17,15 +17,17 @@ isRHEL() {
 }
 
 isRHEL6() {
-    if [ "$MyOS" == "RHEL6" ]; then
+    if [ "$MyOS" == "RHEL66SAPHVM" ]; then
         echo 1
+    elif [ "$MyOS" == "RHEL67SAPHVM" ]; then
+	echo 1
     else
       echo 0
     fi
 }
 
 isRHEL7() {
-    if [ "$MyOS" == "RHEL7" ]; then
+    if [ "$MyOS" == "RHEL72SAPHVM" ]; then
         echo 1
     else
       echo 0

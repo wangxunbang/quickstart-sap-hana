@@ -55,7 +55,7 @@ def main():
 
 
     # Wait until all HANA nodes have populated their IPs
-    cmd ='sh /root/install/cluster-watch-engine.sh '
+    cmd ='/bin/sh /root/install/cluster-watch-engine.sh '
     cmd = cmd + ' -n ' + tablename + ' -w ' + '"PRE_INSTALL_COMPLETE=' + str(hostcount) + '"'
     print "Executing ",cmd
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
@@ -64,7 +64,7 @@ def main():
     print output
 
     # Populate all IPs to hostname
-    cmd ='sh /root/install/cluster-watch-engine.sh ' + ' -n ' + tablename + ' -p'
+    cmd ='/bin/sh /root/install/cluster-watch-engine.sh ' + ' -n ' + tablename + ' -p'
     print "Populating IPs via ",cmd
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     (output, err) = p.communicate()

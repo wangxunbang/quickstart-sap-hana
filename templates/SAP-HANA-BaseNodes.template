@@ -112,7 +112,8 @@
                 "SuSELinux12",
                 "SuSELinux12SP1",
                 "RedHatLinux66",
-                "RedHatLinux67"
+                "RedHatLinux67",
+                "RedHatLinux72"
             ]
         },
         "InstallRDPInstance": {
@@ -629,6 +630,9 @@
             "RedHatLinux67": {
                 "Code": "RHEL67SAPHVM"
             },
+            "RedHatLinux72": {
+                "Code": "RHEL72SAPHVM"
+            },            
             "SuSELinux11SP4": {
                 "Code": "SLES11SP4HVM"
             },
@@ -646,6 +650,7 @@
             "AMI": {
                 "RHEL66SAPHVM": "RHEL-6.6_HVM_GA-SAP-20150430-x86_64-2-Hourly2-GP2-b676039c-a4f8-4be7-9866-c804b1ade684-ami-905a54f8.2",
                 "RHEL67SAPHVM": "SAP-6.7_HVM-20160412-x86_64-1-Hourly2-GP2-b676039c-a4f8-4be7-9866-c804b1ade684-ami-afbdaec5.3",
+                "RHEL72SAPHVM": "SAP-7.2_HVM-20161206-x86_64-1-Hourly2-GP2-b676039c-a4f8-4be7-9866-c804b1ade684-ami-653c3b72.3",
                 "SLES11SP4HVM": "suse-sles-11-sp4-v20160804-hvm-ssd-x86_64",
                 "SLES12HVM": "suse-sles-12-v20151113-hvm-ssd-x86_64",
                 "SLES12SP1HVM": "suse-sles-12-sp1-v20161021-hvm-ssd-x86_64",
@@ -655,6 +660,7 @@
             "ap-northeast-1": {
                 "RHEL66SAPHVM": "ami-dce538dc",
                 "RHEL67SAPHVM": "ami-bded38dc",
+                "RHEL72SAPHVM": "ami-26127b41",
                 "SLES11SP4HVM": "ami-1c73b47d",
                 "SLES12HVM": "ami-0a705064",
                 "SLES12SP1HVM": "ami-d94fe9b8",
@@ -664,12 +670,14 @@
             "ap-northeast-2": {
                 "RHEL66SAPHVM": "ami-0d9d5363",
                 "RHEL67SAPHVM": "ami-8414c1ea",
+                "RHEL72SAPHVM": "ami-57845239",                
                 "SLES11SP4HVM": "ami-0b20ea65",
                 "SLES12SP1HVM": "ami-1ced3972",
                 "SLES12SP1SAPHVM": "ami-30eb3f5e",
                 "WS2012R2": "ami-69d30407"
             },
             "ap-south-1": {
+                "RHEL72SAPHVM": "ami-0af88f65",
                 "SLES11SP4HVM": "ami-12285d7d",
                 "SLES12SP1HVM": "ami-985226f7",
                 "SLES12SP1SAPHVM": "ami-565a2e39",
@@ -678,6 +686,7 @@
             "ap-southeast-1": {
                 "RHEL66SAPHVM": "ami-a6d5eef4",
                 "RHEL67SAPHVM": "ami-6c25fe0f",
+                "RHEL72SAPHVM": "ami-4440ef27",                
                 "SLES11SP4HVM": "ami-81d806e2",
                 "SLES12HVM": "ami-2620e645",
                 "SLES12SP1HVM": "ami-163d9b75",
@@ -687,6 +696,7 @@
             "ap-southeast-2": {
                 "RHEL66SAPHVM": "ami-a74c349d",
                 "RHEL67SAPHVM": "ami-8a6051e9",
+                "RHEL72SAPHVM": "ami-65330806",                
                 "SLES11SP4HVM": "ami-2f7f4b4c",
                 "SLES12HVM": "ami-96ecb2f5",
                 "SLES12SP1HVM": "ami-e32b1680",
@@ -696,6 +706,7 @@
             "eu-central-1": {
                 "RHEL66SAPHVM": "ami-4c073e51",
                 "RHEL67SAPHVM": "ami-b90bf8d6",
+                "RHEL72SAPHVM": "ami-5088483f",                
                 "SLES11SP4HVM": "ami-68788f07",
                 "SLES12HVM": "ami-d7485abb",
                 "SLES12SP1HVM": "ami-59699036",
@@ -705,6 +716,7 @@
             "eu-west-1": {
                 "RHEL66SAPHVM": "ami-99126fee",
                 "RHEL67SAPHVM": "ami-a9d7aada",
+                "RHEL72SAPHVM": "ami-33bb9d40",                
                 "SLES11SP4HVM": "ami-0f18717c",
                 "SLES12HVM": "ami-c1f328b2",
                 "SLES12SP1HVM": "ami-b197d9c2",
@@ -714,6 +726,7 @@
             "sa-east-1": {
                 "RHEL66SAPHVM": "ami-b3e666ae",
                 "RHEL67SAPHVM": "ami-87e272eb",
+                "RHEL72SAPHVM": "ami-c59f07a9",                
                 "SLES11SP4HVM": "ami-c61483aa",
                 "SLES12HVM": "ami-319e245d",
                 "SLES12SP1HVM": "ami-ce3aa7a2",
@@ -723,6 +736,7 @@
             "us-east-1": {
                 "RHEL66SAPHVM": "ami-23ea0648",
                 "RHEL67SAPHVM": "ami-819ce996",
+                "RHEL72SAPHVM": "ami-67999070",                
                 "SLES11SP4HVM": "ami-0434a713",
                 "SLES12HVM": "ami-f2d5ad98",
                 "SLES12SP1HVM": "ami-1eeab909",
@@ -732,6 +746,7 @@
             "us-east-2": {
                 "RHEL66SAPHVM": "ami-23ea0648",
                 "RHEL67SAPHVM": "ami-819ce996",
+                "RHEL72SAPHVM": "ami-ddc993b8",                
                 "SLES11SP4HVM": "ami-4af2a92f",
                 "SLES12HVM": "ami-f2d5ad98",
                 "SLES12SP1HVM": "ami-85075de0",
@@ -741,6 +756,7 @@
             "us-west-1": {
                 "RHEL66SAPHVM": "ami-3311fa77",
                 "RHEL67SAPHVM": "ami-92561af2",
+                "RHEL72SAPHVM": "ami-a7de88c7",                
                 "SLES11SP4HVM": "ami-2fe0a04f",
                 "SLES12HVM": "ami-b56b05d5",
                 "SLES12SP1HVM": "ami-a12962c1",
@@ -750,6 +766,7 @@
             "us-west-2": {
                 "RHEL66SAPHVM": "ami-15e1df25",
                 "RHEL67SAPHVM": "ami-3faa7a5f",
+                "RHEL72SAPHVM": "ami-9b4cf9fb",                
                 "SLES11SP4HVM": "ami-e331f883",
                 "SLES12HVM": "ami-d51607b4",
                 "SLES12SP1HVM": "ami-7fa2061f",
