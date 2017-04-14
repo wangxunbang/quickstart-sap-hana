@@ -632,7 +632,7 @@
             },
             "RedHatLinux72": {
                 "Code": "RHEL72SAPHVM"
-            },            
+            },
             "SuSELinux11SP4": {
                 "Code": "SLES11SP4HVM"
             },
@@ -651,127 +651,127 @@
                 "RHEL66SAPHVM": "RHEL-6.6_HVM_GA-SAP-20150430-x86_64-2-Hourly2-GP2-b676039c-a4f8-4be7-9866-c804b1ade684-ami-905a54f8.2",
                 "RHEL67SAPHVM": "SAP-6.7_HVM-20160412-x86_64-1-Hourly2-GP2-b676039c-a4f8-4be7-9866-c804b1ade684-ami-afbdaec5.3",
                 "RHEL72SAPHVM": "SAP-7.2_HVM-20161206-x86_64-1-Hourly2-GP2-b676039c-a4f8-4be7-9866-c804b1ade684-ami-653c3b72.3",
-                "SLES11SP4HVM": "suse-sles-11-sp4-v20160804-hvm-ssd-x86_64",
+                "SLES11SP4HVM": "suse-sles-11-sp4-v20161221-hvm-ssd-x86_64",
                 "SLES12HVM": "suse-sles-12-v20151113-hvm-ssd-x86_64",
                 "SLES12SP1HVM": "suse-sles-12-sp1-v20161021-hvm-ssd-x86_64",
-                "SLES12SP1SAPHVM": "suse-sles-sap-12-sp1-v20161021-hvm-ssd-x86_64-2f28c0e5-af3e-4d22-95f1-6c1af645c209-ami-ca693bdd.3",
-                "WS2012R2": "Windows_Server-2012-R2_RTM-English-64Bit-Base-2016.11.23"
+                "SLES12SP1SAPHVM": "suse-sles-sap-12-sp1-v20170121-hvm-ssd-x86_64-2f28c0e5-af3e-4d22-95f1-6c1af645c209-ami-be32c5a8.3",
+                "WS2012R2": "Windows_Server-2012-R2_RTM-English-64Bit-Base-2017.03.15"
             },
             "ap-northeast-1": {
                 "RHEL66SAPHVM": "ami-dce538dc",
                 "RHEL67SAPHVM": "ami-bded38dc",
                 "RHEL72SAPHVM": "ami-26127b41",
-                "SLES11SP4HVM": "ami-1c73b47d",
+                "SLES11SP4HVM": "ami-ee4a2189",
                 "SLES12HVM": "ami-0a705064",
                 "SLES12SP1HVM": "ami-d94fe9b8",
-                "SLES12SP1SAPHVM": "ami-3e27865f",
-                "WS2012R2": "ami-5b299d3a"
+                "SLES12SP1SAPHVM": "ami-559ee532",
+                "WS2012R2": "ami-cb7429ac"
             },
             "ap-northeast-2": {
                 "RHEL66SAPHVM": "ami-0d9d5363",
                 "RHEL67SAPHVM": "ami-8414c1ea",
-                "RHEL72SAPHVM": "ami-57845239",                
-                "SLES11SP4HVM": "ami-0b20ea65",
+                "RHEL72SAPHVM": "ami-57845239",
+                "SLES11SP4HVM": "ami-42a1772c",
                 "SLES12SP1HVM": "ami-1ced3972",
-                "SLES12SP1SAPHVM": "ami-30eb3f5e",
-                "WS2012R2": "ami-69d30407"
+                "SLES12SP1SAPHVM": "ami-68fd2c06",
+                "WS2012R2": "ami-34d4075a"
             },
             "ap-south-1": {
                 "RHEL72SAPHVM": "ami-0af88f65",
-                "SLES11SP4HVM": "ami-12285d7d",
+                "SLES11SP4HVM": "ami-23c6b14c",
                 "SLES12SP1HVM": "ami-985226f7",
-                "SLES12SP1SAPHVM": "ami-565a2e39",
-                "WS2012R2": "ami-79255216"
+                "SLES12SP1SAPHVM": "ami-903243ff",
+                "WS2012R2": "ami-dd8cfcb2"
             },
             "ap-southeast-1": {
                 "RHEL66SAPHVM": "ami-a6d5eef4",
                 "RHEL67SAPHVM": "ami-6c25fe0f",
-                "RHEL72SAPHVM": "ami-4440ef27",                
-                "SLES11SP4HVM": "ami-81d806e2",
+                "RHEL72SAPHVM": "ami-4440ef27",
+                "SLES11SP4HVM": "ami-abbc12c8",
                 "SLES12HVM": "ami-2620e645",
                 "SLES12SP1HVM": "ami-163d9b75",
-                "SLES12SP1SAPHVM": "ami-c6ff5ea5",
-                "WS2012R2": "ami-9d7ad8fe"
+                "SLES12SP1SAPHVM": "ami-e807ad8b",
+                "WS2012R2": "ami-e5a51786"
             },
             "ap-southeast-2": {
                 "RHEL66SAPHVM": "ami-a74c349d",
                 "RHEL67SAPHVM": "ami-8a6051e9",
-                "RHEL72SAPHVM": "ami-65330806",                
-                "SLES11SP4HVM": "ami-2f7f4b4c",
+                "RHEL72SAPHVM": "ami-65330806",
+                "SLES11SP4HVM": "ami-52b38831",
                 "SLES12HVM": "ami-96ecb2f5",
                 "SLES12SP1HVM": "ami-e32b1680",
-                "SLES12SP1SAPHVM": "ami-59fbc63a",
-                "WS2012R2": "ami-9fe7d9fc"
+                "SLES12SP1SAPHVM": "ami-b01215d3",
+                "WS2012R2": "ami-a63934c5"
             },
             "eu-central-1": {
                 "RHEL66SAPHVM": "ami-4c073e51",
                 "RHEL67SAPHVM": "ami-b90bf8d6",
-                "RHEL72SAPHVM": "ami-5088483f",                
-                "SLES11SP4HVM": "ami-68788f07",
+                "RHEL72SAPHVM": "ami-5088483f",
+                "SLES11SP4HVM": "ami-ca36f6a5",
                 "SLES12HVM": "ami-d7485abb",
                 "SLES12SP1HVM": "ami-59699036",
-                "SLES12SP1SAPHVM": "ami-72ac541d",
-                "WS2012R2": "ami-21cb0f4e"
+                "SLES12SP1SAPHVM": "ami-f576b99a",
+                "WS2012R2": "ami-d029febf"
             },
             "eu-west-1": {
                 "RHEL66SAPHVM": "ami-99126fee",
                 "RHEL67SAPHVM": "ami-a9d7aada",
-                "RHEL72SAPHVM": "ami-33bb9d40",                
-                "SLES11SP4HVM": "ami-0f18717c",
+                "RHEL72SAPHVM": "ami-33bb9d40",
+                "SLES11SP4HVM": "ami-1fb5956c",
                 "SLES12HVM": "ami-c1f328b2",
                 "SLES12SP1HVM": "ami-b197d9c2",
-                "SLES12SP1SAPHVM": "ami-a98dc4da",
-                "WS2012R2": "ami-95d984e6"
+                "SLES12SP1SAPHVM": "ami-ec421d8a",
+                "WS2012R2": "ami-d3dee9b5"
             },
             "sa-east-1": {
                 "RHEL66SAPHVM": "ami-b3e666ae",
                 "RHEL67SAPHVM": "ami-87e272eb",
-                "RHEL72SAPHVM": "ami-c59f07a9",                
-                "SLES11SP4HVM": "ami-c61483aa",
+                "RHEL72SAPHVM": "ami-c59f07a9",
+                "SLES11SP4HVM": "ami-7772ea1b",
                 "SLES12HVM": "ami-319e245d",
                 "SLES12SP1HVM": "ami-ce3aa7a2",
-                "SLES12SP1SAPHVM": "ami-69c95505",
-                "WS2012R2": "ami-628e100e"
+                "SLES12SP1SAPHVM": "ami-f75e3b9b",
+                "WS2012R2": "ami-83f594ef"
             },
             "us-east-1": {
                 "RHEL66SAPHVM": "ami-23ea0648",
                 "RHEL67SAPHVM": "ami-819ce996",
-                "RHEL72SAPHVM": "ami-67999070",                
-                "SLES11SP4HVM": "ami-0434a713",
+                "RHEL72SAPHVM": "ami-67999070",
+                "SLES11SP4HVM": "ami-552e3a42",
                 "SLES12HVM": "ami-f2d5ad98",
                 "SLES12SP1HVM": "ami-1eeab909",
-                "SLES12SP1SAPHVM": "ami-90f0ad87",
-                "WS2012R2": "ami-bfeddca8"
+                "SLES12SP1SAPHVM": "ami-cef80ed8",
+                "WS2012R2": "ami-11e84107"
             },
             "us-east-2": {
                 "RHEL66SAPHVM": "ami-23ea0648",
                 "RHEL67SAPHVM": "ami-5cb7ec39",
-                "RHEL72SAPHVM": "ami-ddc993b8",                
-                "SLES11SP4HVM": "ami-4af2a92f",
+                "RHEL72SAPHVM": "ami-ddc993b8",
+                "SLES11SP4HVM": "ami-6ec09a0b",
                 "SLES12HVM": "ami-f2d5ad98",
                 "SLES12SP1HVM": "ami-85075de0",
-                "SLES12SP1SAPHVM": "ami-ac3963c9",
-                "WS2012R2": "ami-e999c38c"
+                "SLES12SP1SAPHVM": "ami-0c250069",
+                "WS2012R2": "ami-d85773bd"
             },
             "us-west-1": {
                 "RHEL66SAPHVM": "ami-3311fa77",
                 "RHEL67SAPHVM": "ami-92561af2",
-                "RHEL72SAPHVM": "ami-a7de88c7",                
-                "SLES11SP4HVM": "ami-2fe0a04f",
+                "RHEL72SAPHVM": "ami-a7de88c7",
+                "SLES11SP4HVM": "ami-cc5001ac",
                 "SLES12HVM": "ami-b56b05d5",
                 "SLES12SP1HVM": "ami-a12962c1",
-                "SLES12SP1SAPHVM": "ami-54561d34",
-                "WS2012R2": "ami-8b590deb"
+                "SLES12SP1SAPHVM": "ami-fc8ddf9c",
+                "WS2012R2": "ami-052d7565"
             },
             "us-west-2": {
                 "RHEL66SAPHVM": "ami-15e1df25",
                 "RHEL67SAPHVM": "ami-3faa7a5f",
-                "RHEL72SAPHVM": "ami-9b4cf9fb",                
-                "SLES11SP4HVM": "ami-e331f883",
+                "RHEL72SAPHVM": "ami-9b4cf9fb",
+                "SLES11SP4HVM": "ami-87ef58e7",
                 "SLES12HVM": "ami-d51607b4",
                 "SLES12SP1HVM": "ami-7fa2061f",
-                "SLES12SP1SAPHVM": "ami-26339746",
-                "WS2012R2": "ami-24e64944"
+                "SLES12SP1SAPHVM": "ami-2f62dc4f",
+                "WS2012R2": "ami-09f47d69"
             }
         }
     },
@@ -2168,9 +2168,6 @@
                             "",
                             [
                                 "#!/bin/bash -v\n",
-                                "sudo su -c ",
-                                "' ",
-                                "\n",
                                 "exec 3>&1 1>>/root/install/misc.log 2>&1 \n",
                                 "hostname ",
                                 {
@@ -2460,9 +2457,6 @@
                             "",
                             [
                                 "#!/bin/bash -v\n",
-                                "sudo su -c ",
-                                "' ",
-                                "\n",
                                 "exec 3>&1 1>>/root/install/misc.log 2>&1 \n",
                                 "hostname ",
                                 {
@@ -2752,9 +2746,6 @@
                             "",
                             [
                                 "#!/bin/bash -v\n",
-                                "sudo su -c ",
-                                "' ",
-                                "\n",
                                 "exec 3>&1 1>>/root/install/misc.log 2>&1 \n",
                                 "hostname ",
                                 {
@@ -3044,9 +3035,6 @@
                             "",
                             [
                                 "#!/bin/bash -v\n",
-                                "sudo su -c ",
-                                "' ",
-                                "\n",
                                 "exec 3>&1 1>>/root/install/misc.log 2>&1 \n",
                                 "hostname ",
                                 {
@@ -3336,9 +3324,6 @@
                             "",
                             [
                                 "#!/bin/bash -v\n",
-                                "sudo su -c ",
-                                "' ",
-                                "\n",
                                 "exec 3>&1 1>>/root/install/misc.log 2>&1 \n",
                                 "hostname ",
                                 {
