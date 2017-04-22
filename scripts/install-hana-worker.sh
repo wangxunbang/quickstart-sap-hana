@@ -187,7 +187,7 @@ install_worker() {
 	if [ -e ${HDBLCM} ]; then
 	#    ${HDBADDHOST} --role=worker --sapmnt=/hana/shared --password=$HANAPASSWORD --sid=$SID
 		MYHOSTNAME=$(hostname)
-		${HDBLCM} --action=add_hosts  --addhosts=${MYHOSTNAME} --password=$HANAPASSWORD  --sid=$SID --batch
+		${HDBLCM} --action=add_hosts  --addhosts=${MYHOSTNAME} --password=$HANAPASSWORD  --sapadm_password=$HANAPASSWORD --sid=$SID --batch
 	    return 0
 	  else
 	    log `date` "${HDBLCM} program not available, ensure /hana/shared is mounted from $MASTER_HOSTNAME"
