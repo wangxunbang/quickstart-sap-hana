@@ -103,7 +103,7 @@
             "Description": "Proxy address for http access (e.g., http://xyz.abc.com:8080 or http://10.x.x.x:8080).",
             "Type": "String",
             "Default": ""
-        },        
+        },
         "MyOS": {
             "Type": "String",
             "Description": "Operating system (SLES or RHEL) and version for master/worker nodes.",
@@ -332,7 +332,7 @@
                 },
                 "Proxy": {
                     "default": "Enter proxy server address"
-                },                
+                },
                 "KeyName": {
                     "default": "Choose key pair"
                 },
@@ -378,43 +378,43 @@
     "Mappings": {
         "AWSAMIRegionMap": {
             "AMI": {
-                "AWSNAT": "amzn-ami-vpc-nat-hvm-2016.03.3.x86_64-ebs"
+                "AWSNAT": "amzn-ami-vpc-nat-hvm-2017.03.1.20170623-x86_64-ebs"
             },
             "ap-northeast-1": {
-                "AWSNAT": "ami-2443b745"
+                "AWSNAT": "ami-10dfc877"
             },
             "ap-northeast-2": {
-                "AWSNAT": "ami-e2b9d38d"
+                "AWSNAT": "ami-1a1bc474"
             },
             "ap-south-1": {
-                "AWSNAT": "ami-e2b9d38d"
+                "AWSNAT": "ami-e0215f8f"
             },
             "ap-southeast-1": {
-                "AWSNAT": "ami-a79b49c4"
+                "AWSNAT": "ami-36af2055"
             },
             "ap-southeast-2": {
-                "AWSNAT": "ami-53371f30"
+                "AWSNAT": "ami-1e91817d"
             },
             "eu-central-1": {
-                "AWSNAT": "ami-5825cd37"
+                "AWSNAT": "ami-9ebe18f1"
             },
             "eu-west-1": {
-                "AWSNAT": "ami-a8dd45db"
+                "AWSNAT": "ami-3a849f5c"
             },
             "sa-east-1": {
-                "AWSNAT": "ami-9336bcff"
+                "AWSNAT": "ami-8bdab1e7"
             },
             "us-east-1": {
-                "AWSNAT": "ami-4868ab25"
+                "AWSNAT": "ami-d4c5efc2"
             },
             "us-east-2": {
-                "AWSNAT": "ami-4868ab25"
+                "AWSNAT": "ami-f27b5a97"
             },
             "us-west-1": {
-                "AWSNAT": "ami-004b0f60"
+                "AWSNAT": "ami-b87f53d8"
             },
             "us-west-2": {
-                "AWSNAT": "ami-a275b1c2"
+                "AWSNAT": "ami-8bfce8f2"
             }
         }
     },
