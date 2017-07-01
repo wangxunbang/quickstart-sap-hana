@@ -105,6 +105,11 @@ check_instancetype() {
 	fi
 }
 
+preserve_hostname() {
+    hostnamectl set-hostname --static $(hostname)
+    echo "preserve_hostname: true" >> /etc/cloud/cloud.cfg
+}
+
 # ------------------------------------------------------------------
 #          Output log to HANA_LOG_FILE
 # ------------------------------------------------------------------
@@ -265,6 +270,8 @@ then
     install_prereq
 
     start_oss_configs
+
+    preserve_hostname
 
     log "## Completed HANA Prerequisites installation ## "
 

@@ -94,5 +94,9 @@
     {
         "ParameterKey": "VolumeType",
         "ParameterValue": "gp2"
+    },
+    {
+        "ParameterKey": "Proxy",
+        "ParameterValue": ""
     }
 ]

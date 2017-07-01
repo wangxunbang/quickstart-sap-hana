@@ -99,6 +99,11 @@
             "Type": "String",
             "Default": "quickstart-reference/sap/hana/latest"
         },
+        "Proxy": {
+            "Description": "Proxy address for http access (e.g., http://xyz.abc.com:8080 or http://10.x.x.x:8080).",
+            "Type": "String",
+            "Default": ""
+        },        
         "MyOS": {
             "Type": "String",
             "Description": "Operating system (SLES or RHEL) and version for master/worker nodes.",
@@ -115,7 +120,7 @@
         "MyInstanceType": {
             "Type": "String",
             "Description": "Instance type for SAP HANA host.",
-            "Default": "r3.2xlarge",
+            "Default": "r4.2xlarge",
             "AllowedValues": [
                 "r3.8xlarge",
                 "r3.4xlarge",
@@ -269,7 +274,8 @@
                     "Parameters": [
                         "PlacementGroupName",
                         "InstallRDPInstance",
-                        "RDPInstanceType"
+                        "RDPInstanceType",
+                        "Proxy"
                     ]
                 },
                 {
@@ -324,6 +330,9 @@
                 "PrivateBucket": {
                     "default": "Enter private bucket"
                 },
+                "Proxy": {
+                    "default": "Enter proxy server address"
+                },                
                 "KeyName": {
                     "default": "Choose key pair"
                 },
@@ -369,43 +378,43 @@
     "Mappings": {
         "AWSAMIRegionMap": {
             "AMI": {
-                "AWSNAT": "amzn-ami-vpc-nat-hvm-2017.03.1.20170617-x86_64-ebs"
+                "AWSNAT": "amzn-ami-vpc-nat-hvm-2016.03.3.x86_64-ebs"
             },
             "ap-northeast-1": {
-                "AWSNAT": "ami-fef0fb99"
+                "AWSNAT": "ami-2443b745"
             },
             "ap-northeast-2": {
-                "AWSNAT": "ami-55a7783b"
+                "AWSNAT": "ami-e2b9d38d"
             },
             "ap-south-1": {
-                "AWSNAT": "ami-7989f616"
+                "AWSNAT": "ami-e2b9d38d"
             },
             "ap-southeast-1": {
-                "AWSNAT": "ami-85d65be6"
+                "AWSNAT": "ami-a79b49c4"
             },
             "ap-southeast-2": {
-                "AWSNAT": "ami-17809174"
+                "AWSNAT": "ami-53371f30"
             },
             "eu-central-1": {
-                "AWSNAT": "ami-ada502c2"
+                "AWSNAT": "ami-5825cd37"
             },
             "eu-west-1": {
-                "AWSNAT": "ami-53544d35"
+                "AWSNAT": "ami-a8dd45db"
             },
             "sa-east-1": {
-                "AWSNAT": "ami-c9650ea5"
+                "AWSNAT": "ami-9336bcff"
             },
             "us-east-1": {
-                "AWSNAT": "ami-293a183f"
+                "AWSNAT": "ami-4868ab25"
             },
             "us-east-2": {
-                "AWSNAT": "ami-7d83a518"
+                "AWSNAT": "ami-4868ab25"
             },
             "us-west-1": {
-                "AWSNAT": "ami-72351812"
+                "AWSNAT": "ami-004b0f60"
             },
             "us-west-2": {
-                "AWSNAT": "ami-0b707a72"
+                "AWSNAT": "ami-a275b1c2"
             }
         }
     },
@@ -444,7 +453,7 @@
         "BaseNodes": {
             "Type": "AWS::CloudFormation::Stack",
             "Properties": {
-                "TemplateURL": "https://s3.amazonaws.com/quickstart-reference/sap/hana/latest/templates/SAP-HANA-BaseNodes.template",
+                "TemplateURL": "https://s3.amazonaws.com/sradhak/sap/hana/latest/templates/SAP-HANA-BaseNodes.template",
                 "Parameters": {
                     "PrivSubCIDR": {
                         "Ref": "PrivSubCIDR"
@@ -503,6 +512,9 @@
                     },
                     "PrivateBucket": {
                         "Ref": "PrivateBucket"
+                    },
+                    "Proxy": {
+                        "Ref": "Proxy"
                     },
                     "KeyName": {
                         "Ref": "KeyName"

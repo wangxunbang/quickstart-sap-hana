@@ -66,6 +66,11 @@
             "Type": "String",
             "Default": "quickstart-reference/sap/hana/latest"
         },
+        "Proxy": {
+            "Description": "Proxy address for http access (e.g., http://xyz.abc.com:8080 or http://10.x.x.x:8080).",
+            "Type": "String",
+            "Default": ""
+        },        
         "KeyName": {
             "Type": "AWS::EC2::KeyPair::KeyName",
             "Default": "home",
@@ -148,7 +153,7 @@
         "MyInstanceType": {
             "Type": "String",
             "Description": "Instance type for SAP HANA host.",
-            "Default": "r3.2xlarge",
+            "Default": "r4.2xlarge",
             "AllowedValues": [
                 "r3.8xlarge",
                 "r3.4xlarge",
@@ -254,7 +259,8 @@
                         "PlacementGroupName",
                         "InstallRDPInstance",
                         "RDPInstanceType",
-                        "RemoteAccessCIDR"
+                        "RemoteAccessCIDR",
+                        "Proxy"
                     ]
                 },
                 {
@@ -309,6 +315,9 @@
                 "PrivateBucket": {
                     "default": "Enter private bucket"
                 },
+                "Proxy": {
+                    "default": "Enter proxy server address"
+                },                
                 "KeyName": {
                     "default": "Choose key pair"
                 },
@@ -1046,6 +1055,36 @@
                                     {
                                         "Ref": "SAPInstanceNum"
                                     },
+                                    "13"
+                                ]
+                            ]
+                        },
+                        "ToPort": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "3",
+                                    {
+                                        "Ref": "SAPInstanceNum"
+                                    },
+                                    "13"
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "CidrIp": {
+                            "Ref": "DMZCIDR"
+                        },
+                        "FromPort": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "3",
+                                    {
+                                        "Ref": "SAPInstanceNum"
+                                    },
                                     "15"
                                 ]
                             ]
@@ -1093,6 +1132,36 @@
                             ]
                         }
                     },
+                    {
+                        "IpProtocol": "tcp",
+                        "CidrIp": {
+                            "Ref": "DMZCIDR"
+                        },
+                        "FromPort": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "3",
+                                    {
+                                        "Ref": "SAPInstanceNum"
+                                    },
+                                    "41"
+                                ]
+                            ]
+                        },
+                        "ToPort": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "3",
+                                    {
+                                        "Ref": "SAPInstanceNum"
+                                    },
+                                    "44"
+                                ]
+                            ]
+                        }
+                    },                    
                     {
                         "IpProtocol": "tcp",
                         "CidrIp": {
@@ -1873,7 +1942,46 @@
                                     ]
                                 },
                                 " > /etc/HOSTNAME\n",
-                                "mkdir /root/install\n",
+                                "echo ",
+                                {
+                                    "Fn::Join": [
+                                        ".",
+                                        [
+                                            {
+                                                "Ref": "HANAMasterHostname"
+                                            },
+                                            {
+                                                "Ref": "DomainName"
+                                            }
+                                        ]
+                                    ]
+                                },
+                                " > /etc/hostname\n",                                
+                                "export http_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export https_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export HTTP_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export HTTPS_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export no_proxy=localhost,127.0.0.1,169.254.169.254",
+                                "\n",
+                                "export NO_PROXY=localhost,127.0.0.1,169.254.169.254",
+                                "\n",
+                                "mkdir /root/install\n",                                                              
                                 "wget https://s3.amazonaws.com/",
                                 {
                                     "Ref": "PrivateBucket"
@@ -1951,6 +2059,30 @@
                                     "Ref": "SAPInstanceNum"
                                 },
                                 "\n",
+                                "sh /root/install/writeconfig.sh http_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh HTTP_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh https_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh HTTPS_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh no_proxy=localhost,127.0.0.1,169.254.169.254",
+                                "\n",
+                                "sh /root/install/writeconfig.sh NO_PROXY=localhost,127.0.0.1,169.254.169.254",
+                                "\n",                                                                
                                 "sh /root/install/writeconfig.sh IsMasterNode=1",
                                 "\n",
                                 "sh /root/install/writeconfig.sh IsWorkerNode=0",
@@ -1980,19 +2112,11 @@
                                     ]
                                 },
                                 " >> /root/install/config.sh\n",
-                                "echo ",
+                                "sh /root/install/writeconfig.sh REGION=",
                                 {
-                                    "Fn::Join": [
-                                        "",
-                                        [
-                                            "export REGION=",
-                                            {
-                                                "Ref": "AWS::Region"
-                                            }
-                                        ]
-                                    ]
+                                    "Ref": "AWS::Region"
                                 },
-                                " >> /root/install/config.sh\n",
+                                "\n",
                                 "sh /root/install/install-aws.sh\n",
                                 "sh /root/install/install-prereq.sh\n",
                                 "#sh /root/install/signal-complete.sh \n",
@@ -2190,7 +2314,11 @@
                                             {
                                                 "Ref": "HANAWorkerHostname"
                                             },
-                                            "01"
+                                            "01",
+                                            ".",
+                                            {
+                                                "Ref": "DomainName"
+                                            }
                                         ]
                                     ]
                                 },
@@ -2211,7 +2339,31 @@
                                         ]
                                     ]
                                 },
-                                " > /etc/HOSTNAME\n",
+                                " > /etc/hostname\n",
+                                "export http_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export https_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export HTTP_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export HTTPS_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export no_proxy=localhost,127.0.0.1,169.254.169.254",
+                                "\n",
+                                "export NO_PROXY=localhost,127.0.0.1,169.254.169.254",
+                                "\n",                                                                
                                 "mkdir /root/install\n",
                                 "wget https://s3.amazonaws.com/",
                                 {
@@ -2285,25 +2437,41 @@
                                     "Ref": "HostCount"
                                 },
                                 "\n",
+                                "sh /root/install/writeconfig.sh http_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh HTTP_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh https_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh HTTPS_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh no_proxy=localhost,127.0.0.1,169.254.169.254",
+                                "\n",
+                                "sh /root/install/writeconfig.sh NO_PROXY=localhost,127.0.0.1,169.254.169.254",
+                                "\n",                                
                                 "sh /root/install/writeconfig.sh IsMasterNode=0",
                                 "\n",
                                 "sh /root/install/writeconfig.sh IsWorkerNode=1",
                                 "\n",
                                 "sh /root/install/writeconfig.sh USR_SAP_VOL=gp2",
                                 "\n",
-                                "echo ",
+                                "sh /root/install/writeconfig.sh REGION=",
                                 {
-                                    "Fn::Join": [
-                                        "",
-                                        [
-                                            "export REGION=",
-                                            {
-                                                "Ref": "AWS::Region"
-                                            }
-                                        ]
-                                    ]
+                                    "Ref": "AWS::Region"
                                 },
-                                " >> /root/install/config.sh\n",
+                                "\n",
                                 "sh /root/install/install-aws.sh\n",
                                 "sh /root/install/install-prereq.sh\n",
                                 "sh /root/install/cluster-watch-engine.sh -c \n",
@@ -2479,7 +2647,11 @@
                                             {
                                                 "Ref": "HANAWorkerHostname"
                                             },
-                                            "02"
+                                            "02",
+                                            ".",
+                                            {
+                                                "Ref": "DomainName"
+                                            }
                                         ]
                                     ]
                                 },
@@ -2500,7 +2672,31 @@
                                         ]
                                     ]
                                 },
-                                " > /etc/HOSTNAME\n",
+                                " > /etc/hostname\n",                                
+                                "export http_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export https_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export HTTP_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export HTTPS_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export no_proxy=localhost,127.0.0.1,169.254.169.254",
+                                "\n",
+                                "export NO_PROXY=localhost,127.0.0.1,169.254.169.254",
+                                "\n",                                
                                 "mkdir /root/install\n",
                                 "wget https://s3.amazonaws.com/",
                                 {
@@ -2574,25 +2770,41 @@
                                     "Ref": "HostCount"
                                 },
                                 "\n",
+                                "sh /root/install/writeconfig.sh http_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh HTTP_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh https_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh HTTPS_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh no_proxy=localhost,127.0.0.1,169.254.169.254",
+                                "\n",
+                                "sh /root/install/writeconfig.sh NO_PROXY=localhost,127.0.0.1,169.254.169.254",
+                                "\n",                                
                                 "sh /root/install/writeconfig.sh IsMasterNode=0",
                                 "\n",
                                 "sh /root/install/writeconfig.sh IsWorkerNode=1",
                                 "\n",
                                 "sh /root/install/writeconfig.sh USR_SAP_VOL=gp2",
                                 "\n",
-                                "echo ",
+                                "sh /root/install/writeconfig.sh REGION=",
                                 {
-                                    "Fn::Join": [
-                                        "",
-                                        [
-                                            "export REGION=",
-                                            {
-                                                "Ref": "AWS::Region"
-                                            }
-                                        ]
-                                    ]
+                                    "Ref": "AWS::Region"
                                 },
-                                " >> /root/install/config.sh\n",
+                                "\n",
                                 "sh /root/install/install-aws.sh\n",
                                 "sh /root/install/install-prereq.sh\n",
                                 "sh /root/install/cluster-watch-engine.sh -c \n",
@@ -2768,7 +2980,11 @@
                                             {
                                                 "Ref": "HANAWorkerHostname"
                                             },
-                                            "03"
+                                            "03",
+                                            ".",
+                                            {
+                                                "Ref": "DomainName"
+                                            }
                                         ]
                                     ]
                                 },
@@ -2789,7 +3005,31 @@
                                         ]
                                     ]
                                 },
-                                " > /etc/HOSTNAME\n",
+                                " > /etc/hostname\n",                                
+                                "export http_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export https_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export HTTP_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export HTTPS_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export no_proxy=localhost,127.0.0.1,169.254.169.254",
+                                "\n",
+                                "export NO_PROXY=localhost,127.0.0.1,169.254.169.254",
+                                "\n",                                
                                 "mkdir /root/install\n",
                                 "wget https://s3.amazonaws.com/",
                                 {
@@ -2863,25 +3103,41 @@
                                     "Ref": "HostCount"
                                 },
                                 "\n",
+                                "sh /root/install/writeconfig.sh http_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh HTTP_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh https_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh HTTPS_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh no_proxy=localhost,127.0.0.1,169.254.169.254",
+                                "\n",
+                                "sh /root/install/writeconfig.sh NO_PROXY=localhost,127.0.0.1,169.254.169.254",
+                                "\n",                                
                                 "sh /root/install/writeconfig.sh IsMasterNode=0",
                                 "\n",
                                 "sh /root/install/writeconfig.sh IsWorkerNode=1",
                                 "\n",
                                 "sh /root/install/writeconfig.sh USR_SAP_VOL=gp2",
                                 "\n",
-                                "echo ",
+                                "sh /root/install/writeconfig.sh REGION=",
                                 {
-                                    "Fn::Join": [
-                                        "",
-                                        [
-                                            "export REGION=",
-                                            {
-                                                "Ref": "AWS::Region"
-                                            }
-                                        ]
-                                    ]
+                                    "Ref": "AWS::Region"
                                 },
-                                " >> /root/install/config.sh\n",
+                                "\n",
                                 "sh /root/install/install-aws.sh\n",
                                 "sh /root/install/install-prereq.sh\n",
                                 "sh /root/install/cluster-watch-engine.sh -c \n",
@@ -3057,7 +3313,11 @@
                                             {
                                                 "Ref": "HANAWorkerHostname"
                                             },
-                                            "04"
+                                            "04",
+                                            ".",
+                                            {
+                                                "Ref": "DomainName"
+                                            }
                                         ]
                                     ]
                                 },
@@ -3078,7 +3338,31 @@
                                         ]
                                     ]
                                 },
-                                " > /etc/HOSTNAME\n",
+                                " > /etc/hostname\n",                                
+                                "export http_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export https_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export HTTP_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export HTTPS_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export no_proxy=localhost,127.0.0.1,169.254.169.254",
+                                "\n",
+                                "export NO_PROXY=localhost,127.0.0.1,169.254.169.254",
+                                "\n",                                
                                 "mkdir /root/install\n",
                                 "wget https://s3.amazonaws.com/",
                                 {
@@ -3152,25 +3436,41 @@
                                     "Ref": "HostCount"
                                 },
                                 "\n",
+                                "sh /root/install/writeconfig.sh http_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh HTTP_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh https_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh HTTPS_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh no_proxy=localhost,127.0.0.1,169.254.169.254",
+                                "\n",
+                                "sh /root/install/writeconfig.sh NO_PROXY=localhost,127.0.0.1,169.254.169.254",
+                                "\n",                                
                                 "sh /root/install/writeconfig.sh IsMasterNode=0",
                                 "\n",
                                 "sh /root/install/writeconfig.sh IsWorkerNode=1",
                                 "\n",
                                 "sh /root/install/writeconfig.sh USR_SAP_VOL=gp2",
                                 "\n",
-                                "echo ",
+                                "sh /root/install/writeconfig.sh REGION=",
                                 {
-                                    "Fn::Join": [
-                                        "",
-                                        [
-                                            "export REGION=",
-                                            {
-                                                "Ref": "AWS::Region"
-                                            }
-                                        ]
-                                    ]
+                                    "Ref": "AWS::Region"
                                 },
-                                " >> /root/install/config.sh\n",
+                                "\n",
                                 "sh /root/install/install-aws.sh\n",
                                 "sh /root/install/install-prereq.sh\n",
                                 "sh /root/install/cluster-watch-engine.sh -c \n",
@@ -3346,7 +3646,11 @@
                                             {
                                                 "Ref": "HANAWorkerHostname"
                                             },
-                                            "05"
+                                            "05",
+                                            ".",
+                                            {
+                                                "Ref": "DomainName"
+                                            }
                                         ]
                                     ]
                                 },
@@ -3367,7 +3671,31 @@
                                         ]
                                     ]
                                 },
-                                " > /etc/HOSTNAME\n",
+                                " > /etc/hostname\n",                                
+                                "export http_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export https_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export HTTP_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export HTTPS_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "export no_proxy=localhost,127.0.0.1,169.254.169.254",
+                                "\n",
+                                "export NO_PROXY=localhost,127.0.0.1,169.254.169.254",
+                                "\n",                                
                                 "mkdir /root/install\n",
                                 "wget https://s3.amazonaws.com/",
                                 {
@@ -3441,25 +3769,41 @@
                                     "Ref": "HostCount"
                                 },
                                 "\n",
+                                "sh /root/install/writeconfig.sh http_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh HTTP_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh https_proxy=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh HTTPS_PROXY=",
+                                {
+                                    "Ref": "Proxy"
+                                },
+                                "\n",
+                                "sh /root/install/writeconfig.sh no_proxy=localhost,127.0.0.1,169.254.169.254",
+                                "\n",
+                                "sh /root/install/writeconfig.sh NO_PROXY=localhost,127.0.0.1,169.254.169.254",
+                                "\n",                                
                                 "sh /root/install/writeconfig.sh IsMasterNode=0",
                                 "\n",
                                 "sh /root/install/writeconfig.sh IsWorkerNode=1",
                                 "\n",
                                 "sh /root/install/writeconfig.sh USR_SAP_VOL=gp2",
                                 "\n",
-                                "echo ",
+                                "sh /root/install/writeconfig.sh REGION=",
                                 {
-                                    "Fn::Join": [
-                                        "",
-                                        [
-                                            "export REGION=",
-                                            {
-                                                "Ref": "AWS::Region"
-                                            }
-                                        ]
-                                    ]
+                                    "Ref": "AWS::Region"
                                 },
-                                " >> /root/install/config.sh\n",
+                                "\n",
                                 "sh /root/install/install-aws.sh\n",
                                 "sh /root/install/install-prereq.sh\n",
                                 "sh /root/install/cluster-watch-engine.sh -c \n",

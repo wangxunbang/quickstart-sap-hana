@@ -26,12 +26,16 @@ def read_config():
     proc.communicate()
 
 def get_mystack_params():
+    read_config()
     stackid = os.environ['MyStackId'].rstrip()
     cmd = aws_cmd
     cmd = cmd + ' cloudformation describe-stacks --stack-name '
     cmd = cmd + stackid
     cmd = cmd +  ' --region ' + os.environ['REGION'].rstrip()
-    proc = subprocess.Popen([cmd], stdout=subprocess.PIPE, shell=True)
+    new_env=os.environ.copy()
+    for key,value in new_env.iteritems():
+        new_env[key]=value.strip()
+    proc = subprocess.Popen([cmd], env=new_env, stdout=subprocess.PIPE, shell=True)
     proc.wait()
     (out, err) = proc.communicate()
     out_json = json.loads(out)
@@ -44,14 +48,27 @@ def get_mystack_params():
     return input
 
 def download_s3(s3path,odir):
-    print 'Will download ' + s3path + ' To ' + odir
+    new_env=os.environ.copy()
+    for key,value in new_env.iteritems():
+        new_env[key]=value.strip()
+    if not os.path.exists(odir):
+        os.makedirs(odir)
+    s3bucket = s3path.split('s3://')[1].split('/')[0]
+    cmd = aws_cmd + ' s3api get-bucket-location --bucket ' + s3bucket + " | grep -Po '(?" + '<="LocationConstraint": ")[^"]*'+ "'"
+    s3bucketregion = subprocess.Popen([cmd], env=new_env, stdout=subprocess.PIPE, shell=True)
+    s3bucketregion = s3bucketregion.stdout.read().rstrip()
+    print 'Will download HANA media from ' + s3path + ' To ' + odir
     cmd = aws_cmd
     cmd = cmd + ' s3 sync ' + s3path
-    cmd = cmd + ' ' + odir
+    if s3bucketregion == "null" or s3bucketregion == "":
+        cmd = cmd + ' ' + odir
+    else:
+        cmd = cmd + ' ' + odir + ' --region ' + s3bucketregion
     if not os.path.exists(odir):
         os.makedirs(odir)
     print 'Executing ' + cmd
-    output = exe_cmd(cmd)
+    output = subprocess.Popen([cmd], env=new_env, stdout=subprocess.PIPE, shell=True)
+    (out, err) = output.communicate()
     cmd = 'chmod 755 ' + odir + '/*.exe'
     output = exe_cmd(cmd)
 

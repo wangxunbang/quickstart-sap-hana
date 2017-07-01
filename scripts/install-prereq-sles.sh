@@ -6,7 +6,7 @@
 
 SCRIPT_DIR=/root/install/
 CLUSTERWATCH_SCRIPT=${SCRIPT_DIR}/ClusterWatchEngine.sh
-MIN_KERN="310"
+MIN_KERN="30"
 OSRELEASE="/etc/os-release"
 
 # ------------------------------------------------------------------

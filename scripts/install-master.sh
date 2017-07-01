@@ -1,4 +1,4 @@
- #!/bin/bash
+#!/bin/bash
 # ------------------------------------------------------------------
 #
 #          Install SAP HANA Master Node
@@ -52,10 +52,10 @@ while getopts ":h:s:i:p:n:d:w:l:" o; do
 			;;
 		d) DOMAIN=${OPTARG}
 			;;
-                w) WORKER_HOSTNAME=${OPTARG}
-                        ;;
-       		l) HANA_LOG_FILE=${OPTARG}
-                        ;;
+        w) WORKER_HOSTNAME=${OPTARG}
+            ;;
+       	l) HANA_LOG_FILE=${OPTARG}
+            ;;
        	*)
             usage
             ;;
@@ -91,7 +91,6 @@ MyInstanceType=$(/usr/local/bin/aws cloudformation describe-stacks --stack-name 
 MyVolumeType=$(/usr/local/bin/aws cloudformation describe-stacks --stack-name ${MyStackId}  --region ${REGION}  \
 				| /root/install/jq '.Stacks[0].Parameters[] | select(.ParameterKey=="VolumeType") | .ParameterValue' \
 				| sed 's/"//g')
-
 
  
 
@@ -209,31 +208,31 @@ create_volume;
 set_noop_scheduler;
 
 
-logsize=",c3.8xlarge:244G,r3.2xlarge:244G,r3.4xlarge:244G,r3.8xlarge:244G,"
-datasize=",c3.8xlarge:488G,r3.2xlarge:488G,r3.4xlarge:488G,r3.8xlarge:488G,"
-sharedsize=",c3.8xlarge:244G,r3.2xlarge:244G,r3.4xlarge:244G,r3.8xlarge:244G,"
-backupsize=",1:488G,2:976G,3:1464G,4:1952G,5:2440G,6:2928G,7:3416G,8:3904G,9:4392G,10:4880G,11:5368G,12:5856G,13:6344G,14:6832G,15:7320G,16:7808G,17:8296G,18:8784G,19:9272G,20:9760G,"
+# logsize=",c3.8xlarge:244G,r3.2xlarge:244G,r3.4xlarge:244G,r3.8xlarge:244G,"
+# datasize=",c3.8xlarge:488G,r3.2xlarge:488G,r3.4xlarge:488G,r3.8xlarge:488G,"
+# sharedsize=",c3.8xlarge:244G,r3.2xlarge:244G,r3.4xlarge:244G,r3.8xlarge:244G,"
+# backupsize=",1:488G,2:976G,3:1464G,4:1952G,5:2440G,6:2928G,7:3416G,8:3904G,9:4392G,10:4880G,11:5368G,12:5856G,13:6344G,14:6832G,15:7320G,16:7808G,17:8296G,18:8784G,19:9272G,20:9760G,"
 
 
-get_logsize() {
-    echo "$(expr "$logsize" : ".*,$1:\([^,]*\),.*")"
-}
+# get_logsize() {
+#     echo "$(expr "$logsize" : ".*,$1:\([^,]*\),.*")"
+# }
 
-get_datasize() {
-    echo "$(expr "$datasize" : ".*,$1:\([^,]*\),.*")"
-}
-get_sharedsize() {
-    echo "$(expr "$sharedsize" : ".*,$1:\([^,]*\),.*")"
-}
+# get_datasize() {
+#     echo "$(expr "$datasize" : ".*,$1:\([^,]*\),.*")"
+# }
+# get_sharedsize() {
+#     echo "$(expr "$sharedsize" : ".*,$1:\([^,]*\),.*")"
+# }
 
-get_backupsize() {
-    echo "$(expr "$backupsize" : ".*,$1:\([^,]*\),.*")"
-}
+# get_backupsize() {
+#     echo "$(expr "$backupsize" : ".*,$1:\([^,]*\),.*")"
+# }
 
-mylogSize=$(get_logsize  ${myInstance})
-mydataSize=$(get_datasize   ${myInstance})
-mysharedSize=$(get_sharedsize  ${myInstance})
-mybackupSize=$(get_backupsize  ${HostCount})
+# mylogSize=$(get_logsize  ${myInstance})
+# mydataSize=$(get_datasize   ${myInstance})
+# mysharedSize=$(get_sharedsize  ${myInstance})
+# mybackupSize=$(get_backupsize  ${HostCount})
 
 # ------------------------------------------------------------------
 #          Create volume group vghana
@@ -243,16 +242,18 @@ mybackupSize=$(get_backupsize  ${HostCount})
 
 if (( ${USE_NEW_STORAGE} == 1 ));
 then
-	echo "Disabled old code."
+
 	log `date` "Formatting block device for /usr/sap"
 	mkfs.xfs -f /dev/xvds
 
 	## 9.1 Create a new volume to store media.
 	## This is where media bits will be downloaded from S3 and extracted
+	log `date` "Creating volume for HANA Media /media"
 	sh -x /root/install/create-attach-single-volume.sh 50:gp2:/dev/sdz:HANA-MEDIA
 	mkfs.xfs -f /dev/xvdz
 	mkdir -p /media/
 	mount /dev/xvdz /media/
+
 
 else
 	log `date` "Creating volume group vghana"
@@ -341,25 +342,26 @@ if (( ${USE_NEW_STORAGE} == 1 ));then
 fi
 
 log `date` "Creating mount points in fstab"
-echo "/dev/xvds /usr/sap   xfs nobarrier,noatime,nodiratime,logbsize=256k,delaylog 0 0" >> /etc/fstab
 
-if (( ${USE_NEW_STORAGE} == 1 ));
+if  ( [ "$MyOS" = "SLES11SP4HVM" ] || [ "$MyOS" = "RHEL66SAPHVM" ] || [ "$MyOS" = "RHEL67SAPHVM" ] );
 then
+	echo "/dev/xvds /usr/sap   xfs nobarrier,noatime,nodiratime,logbsize=256k,delaylog 0 0" >> /etc/fstab
+	echo "/dev/xvdz /media   xfs nobarrier,noatime,nodiratime,logbsize=256k,delaylog 0 0"  >> /etc/fstab	
 	echo "/dev/xvde /hana/shared   xfs nobarrier,noatime,nodiratime,logbsize=256k,delaylog 0 0" >> /etc/fstab
+	echo "/dev/mapper/vghana-lvhanadata     /hana/data     xfs nobarrier,noatime,nodiratime,logbsize=256k,delaylog 0 0" >> /etc/fstab
+	echo "/dev/mapper/vghana-lvhanalog      /hana/log      xfs nobarrier,noatime,nodiratime,logbsize=256k,delaylog 0 0" >> /etc/fstab
+	echo "/dev/mapper/vghanaback-lvhanaback     /backup        xfs nobarrier,noatime,nodiratime,logbsize=256k,delaylog 0 0" >> /etc/fstab
 else
-	echo "/dev/mapper/vghana-lvhanashared   /hana/shared   xfs nobarrier,noatime,nodiratime,logbsize=256k,delaylog 0 0" >> /etc/fstab
-fi
-echo "/dev/mapper/vghana-lvhanadata     /hana/data     xfs nobarrier,noatime,nodiratime,logbsize=256k,delaylog 0 0" >> /etc/fstab
-echo "/dev/mapper/vghana-lvhanalog      /hana/log      xfs nobarrier,noatime,nodiratime,logbsize=256k,delaylog 0 0" >> /etc/fstab
-#echo "/dev/mapper/vghana-lvhanaback     /backup        xfs nobarrier,noatime,nodiratime,logbsize=256k,delaylog 0 0" >> /etc/fstab
-if (( ${USE_NEW_STORAGE} == 1 ));then
-	echo "/dev/xvdz /media   xfs nobarrier,noatime,nodiratime,logbsize=256k,delaylog 0 0"  >> /etc/fstab
-else
-	echo "/dev/xvdz1                        /media         ntfs rw,allow_other 0 0" >> /etc/fstab
-fi
+	echo "/dev/xvds /usr/sap   xfs nobarrier,noatime,nodiratime,logbsize=256k 0 0" >> /etc/fstab
+	echo "/dev/xvdz /media   xfs nobarrier,noatime,nodiratime,logbsize=256k 0 0"  >> /etc/fstab
+	echo "/dev/xvde /hana/shared   xfs nobarrier,noatime,nodiratime,logbsize=256k 0 0" >> /etc/fstab	
+	echo "/dev/mapper/vghana-lvhanadata     /hana/data     xfs nobarrier,noatime,nodiratime,logbsize=256k 0 0" >> /etc/fstab
+	echo "/dev/mapper/vghana-lvhanalog      /hana/log      xfs nobarrier,noatime,nodiratime,logbsize=256k 0 0" >> /etc/fstab
+	echo "/dev/mapper/vghanaback-lvhanaback     /backup        xfs nobarrier,noatime,nodiratime,logbsize=256k 0 0" >> /etc/fstab
+fi		
+
 
 ##10. Updated the fstab entry for /backup (Master only)
-echo "/dev/mapper/vghanaback-lvhanaback     /backup        xfs nobarrier,noatime,nodiratime,logbsize=256k,delaylog 0 0" >> /etc/fstab
 
 
 log `date` "mounting filesystems"

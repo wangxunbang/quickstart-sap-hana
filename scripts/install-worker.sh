@@ -175,39 +175,39 @@ done
 # ------------------------------------------------------------------
 
 log `date` "Creating volume group vghana"
-if (( ${USE_NEW_STORAGE} == 1 ));
-then
-	echo "disabled vgcreate"
-else
-	vgcreate vghana /dev/xvd{b..d}
-fi
+# if (( ${USE_NEW_STORAGE} == 1 ));
+# then
+# 	echo "disabled vgcreate"
+# else
+# 	vgcreate vghana /dev/xvd{b..d}
+# fi
 
 
-logsize=",c3.8xlarge:244G,r3.2xlarge:244G,r3.4xlarge:244G,r3.8xlarge:244G,"
-datasize=",c3.8xlarge:488G,r3.2xlarge:488G,r3.4xlarge:488G,r3.8xlarge:488G,"
-sharedsize=",c3.8xlarge:60G,r3.2xlarge:60G,r3.4xlarge:122G,r3.8xlarge:244G,"
-backupsize=",c3.8xlarge:300G,r3.2xlarge:300G,r3.4xlarge:610G,r3.8xlarge:1200G,"
+# logsize=",c3.8xlarge:244G,r3.2xlarge:244G,r3.4xlarge:244G,r3.8xlarge:244G,"
+# datasize=",c3.8xlarge:488G,r3.2xlarge:488G,r3.4xlarge:488G,r3.8xlarge:488G,"
+# sharedsize=",c3.8xlarge:60G,r3.2xlarge:60G,r3.4xlarge:122G,r3.8xlarge:244G,"
+# backupsize=",c3.8xlarge:300G,r3.2xlarge:300G,r3.4xlarge:610G,r3.8xlarge:1200G,"
 
 
 
-get_logsize() {
-    echo "$(expr "$logsize" : ".*,$1:\([^,]*\),.*")"
-}
+# get_logsize() {
+#     echo "$(expr "$logsize" : ".*,$1:\([^,]*\),.*")"
+# }
 
-get_datasize() {
-    echo "$(expr "$datasize" : ".*,$1:\([^,]*\),.*")"
-}
-get_sharedsize() {
-    echo "$(expr "$sharedsize" : ".*,$1:\([^,]*\),.*")"
-}
-get_backupsize() {
-    echo "$(expr "$backupsize" : ".*,$1:\([^,]*\),.*")"
-}
+# get_datasize() {
+#     echo "$(expr "$datasize" : ".*,$1:\([^,]*\),.*")"
+# }
+# get_sharedsize() {
+#     echo "$(expr "$sharedsize" : ".*,$1:\([^,]*\),.*")"
+# }
+# get_backupsize() {
+#     echo "$(expr "$backupsize" : ".*,$1:\([^,]*\),.*")"
+# }
 
-mylogSize=$(get_logsize  ${myInstance})
-mydataSize=$(get_datasize   ${myInstance})
-mysharedSize=$(get_sharedsize  ${myInstance})
-mybackupSize=$(get_backupsize  ${myInstance})
+# mylogSize=$(get_logsize  ${myInstance})
+# mydataSize=$(get_datasize   ${myInstance})
+# mysharedSize=$(get_sharedsize  ${myInstance})
+# mybackupSize=$(get_backupsize  ${myInstance})
 
 
 
@@ -218,15 +218,15 @@ mybackupSize=$(get_backupsize  ${myInstance})
 
 ###8. Updated number of stripes to 3 for logical volumes created under volume group vghana (Both Master and Worker)
 
-if (( ${USE_NEW_STORAGE} == 1 )); then
-	log `date` "DISABLED old lvcreate"
-else
-	lvcreate -n lvhanashared -i 3 -I 256 -L ${mysharedSize}  vghana
-	log `date` "Creating hana data logical volume"
-	lvcreate -n lvhanadata -i 3 -I 256  -L ${mydataSize} vghana
-	log `date` "Creating hana log logical volume"
-	lvcreate -n lvhanalog  -i 3 -I 256 -L ${mylogSize} vghana
-fi
+# if (( ${USE_NEW_STORAGE} == 1 )); then
+# 	log `date` "DISABLED old lvcreate"
+# else
+# 	lvcreate -n lvhanashared -i 3 -I 256 -L ${mysharedSize}  vghana
+# 	log `date` "Creating hana data logical volume"
+# 	lvcreate -n lvhanadata -i 3 -I 256  -L ${mydataSize} vghana
+# 	log `date` "Creating hana log logical volume"
+# 	lvcreate -n lvhanalog  -i 3 -I 256 -L ${mylogSize} vghana
+# fi
 
 
 if (( ${USE_NEW_STORAGE} == 1 ));
@@ -270,9 +270,18 @@ mkdir /hana /hana/log /hana/data /hana/shared
 mkdir /backup
 
 log `date` "Creating mount points in fstab"
-echo "/dev/xvds			   /usr/sap       xfs nobarrier,noatime,nodiratime,logbsize=256k,delaylog 0 0" >> /etc/fstab
-echo "/dev/mapper/vghana-lvhanadata     /hana/data     xfs nobarrier,noatime,nodiratime,logbsize=256k,delaylog 0 0" >> /etc/fstab
-echo "/dev/mapper/vghana-lvhanalog      /hana/log      xfs nobarrier,noatime,nodiratime,logbsize=256k,delaylog 0 0" >> /etc/fstab
+
+if  ( [ "$MyOS" = "SLES11SP4HVM" ] || [ "$MyOS" = "RHEL66SAPHVM" ] || [ "$MyOS" = "RHEL67SAPHVM" ] );
+then
+	echo "/dev/xvds			   /usr/sap       xfs nobarrier,noatime,nodiratime,logbsize=256k,delaylog 0 0" >> /etc/fstab
+	echo "/dev/mapper/vghana-lvhanadata     /hana/data     xfs nobarrier,noatime,nodiratime,logbsize=256k,delaylog 0 0" >> /etc/fstab
+	echo "/dev/mapper/vghana-lvhanalog      /hana/log      xfs nobarrier,noatime,nodiratime,logbsize=256k,delaylog 0 0" >> /etc/fstab
+else
+	echo "/dev/xvds			   /usr/sap       xfs nobarrier,noatime,nodiratime,logbsize=256k 0 0" >> /etc/fstab
+	echo "/dev/mapper/vghana-lvhanadata     /hana/data     xfs nobarrier,noatime,nodiratime,logbsize=256k 0 0" >> /etc/fstab
+	echo "/dev/mapper/vghana-lvhanalog      /hana/log      xfs nobarrier,noatime,nodiratime,logbsize=256k 0 0" >> /etc/fstab	
+fi
+
 
 log `date` "mounting filesystems"
 mount -a
