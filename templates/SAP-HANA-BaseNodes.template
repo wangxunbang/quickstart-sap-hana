@@ -70,7 +70,7 @@
             "Description": "Proxy address for http access (e.g., http://xyz.abc.com:8080 or http://10.x.x.x:8080).",
             "Type": "String",
             "Default": ""
-        },        
+        },
         "KeyName": {
             "Type": "AWS::EC2::KeyPair::KeyName",
             "Default": "home",
@@ -317,7 +317,7 @@
                 },
                 "Proxy": {
                     "default": "Enter proxy server address"
-                },                
+                },
                 "KeyName": {
                     "default": "Choose key pair"
                 },
@@ -664,7 +664,7 @@
                 "SLES12HVM": "suse-sles-12-v20151113-hvm-ssd-x86_64",
                 "SLES12SP1HVM": "suse-sles-12-sp1-v20161021-hvm-ssd-x86_64",
                 "SLES12SP1SAPHVM": "suse-sles-sap-12-sp1-v20170121-hvm-ssd-x86_64-2f28c0e5-af3e-4d22-95f1-6c1af645c209-ami-be32c5a8.3",
-                "WS2012R2": "Windows_Server-2012-R2_RTM-English-64Bit-Base-2017.06.14"
+                "WS2012R2": "Windows_Server-2012-R2_RTM-English-64Bit-Base-2017.07.13"
             },
             "ap-northeast-1": {
                 "RHEL66SAPHVM": "ami-dce538dc",
@@ -674,7 +674,7 @@
                 "SLES12HVM": "ami-0a705064",
                 "SLES12SP1HVM": "ami-d94fe9b8",
                 "SLES12SP1SAPHVM": "ami-559ee532",
-                "WS2012R2": "ami-354d4552"
+                "WS2012R2": "ami-f5716b92"
             },
             "ap-northeast-2": {
                 "RHEL66SAPHVM": "ami-0d9d5363",
@@ -683,14 +683,14 @@
                 "SLES11SP4HVM": "ami-b9c01fd7",
                 "SLES12SP1HVM": "ami-1ced3972",
                 "SLES12SP1SAPHVM": "ami-68fd2c06",
-                "WS2012R2": "ami-d38659bd"
+                "WS2012R2": "ami-6514ca0b"
             },
             "ap-south-1": {
                 "RHEL72SAPHVM": "ami-0af88f65",
                 "SLES11SP4HVM": "ami-91d1aefe",
                 "SLES12SP1HVM": "ami-985226f7",
                 "SLES12SP1SAPHVM": "ami-903243ff",
-                "WS2012R2": "ami-65b6c90a"
+                "WS2012R2": "ami-e7afd688"
             },
             "ap-southeast-1": {
                 "RHEL66SAPHVM": "ami-a6d5eef4",
@@ -700,7 +700,7 @@
                 "SLES12HVM": "ami-2620e645",
                 "SLES12SP1HVM": "ami-163d9b75",
                 "SLES12SP1SAPHVM": "ami-e807ad8b",
-                "WS2012R2": "ami-9ab230f9"
+                "WS2012R2": "ami-435acd20"
             },
             "ap-southeast-2": {
                 "RHEL66SAPHVM": "ami-a74c349d",
@@ -710,7 +710,7 @@
                 "SLES12HVM": "ami-96ecb2f5",
                 "SLES12SP1HVM": "ami-e32b1680",
                 "SLES12SP1SAPHVM": "ami-b01215d3",
-                "WS2012R2": "ami-f3203190"
+                "WS2012R2": "ami-ab928fc8"
             },
             "eu-central-1": {
                 "RHEL66SAPHVM": "ami-4c073e51",
@@ -720,7 +720,7 @@
                 "SLES12HVM": "ami-d7485abb",
                 "SLES12SP1HVM": "ami-59699036",
                 "SLES12SP1SAPHVM": "ami-f576b99a",
-                "WS2012R2": "ami-ad3e9ac2"
+                "WS2012R2": "ami-f618bb99"
             },
             "eu-west-1": {
                 "RHEL66SAPHVM": "ami-99126fee",
@@ -730,7 +730,7 @@
                 "SLES12HVM": "ami-c1f328b2",
                 "SLES12SP1HVM": "ami-b197d9c2",
                 "SLES12SP1SAPHVM": "ami-ec421d8a",
-                "WS2012R2": "ami-1e5d4378"
+                "WS2012R2": "ami-7cb35e05"
             },
             "sa-east-1": {
                 "RHEL66SAPHVM": "ami-b3e666ae",
@@ -740,7 +740,7 @@
                 "SLES12HVM": "ami-319e245d",
                 "SLES12SP1HVM": "ami-ce3aa7a2",
                 "SLES12SP1SAPHVM": "ami-f75e3b9b",
-                "WS2012R2": "ami-4f3f5423"
+                "WS2012R2": "ami-a42c58c8"
             },
             "us-east-1": {
                 "RHEL66SAPHVM": "ami-23ea0648",
@@ -750,7 +750,7 @@
                 "SLES12HVM": "ami-f2d5ad98",
                 "SLES12SP1HVM": "ami-1eeab909",
                 "SLES12SP1SAPHVM": "ami-cef80ed8",
-                "WS2012R2": "ami-e196b0f7"
+                "WS2012R2": "ami-d79d92c1"
             },
             "us-east-2": {
                 "RHEL66SAPHVM": "ami-23ea0648",
@@ -760,7 +760,7 @@
                 "SLES12HVM": "ami-f2d5ad98",
                 "SLES12SP1HVM": "ami-85075de0",
                 "SLES12SP1SAPHVM": "ami-0c250069",
-                "WS2012R2": "ami-a4b395c1"
+                "WS2012R2": "ami-ceaa8bab"
             },
             "us-west-1": {
                 "RHEL66SAPHVM": "ami-3311fa77",
@@ -770,7 +770,7 @@
                 "SLES12HVM": "ami-b56b05d5",
                 "SLES12SP1HVM": "ami-a12962c1",
                 "SLES12SP1SAPHVM": "ami-fc8ddf9c",
-                "WS2012R2": "ami-b4614cd4"
+                "WS2012R2": "ami-b31c32d3"
             },
             "us-west-2": {
                 "RHEL66SAPHVM": "ami-15e1df25",
@@ -780,7 +780,7 @@
                 "SLES12HVM": "ami-d51607b4",
                 "SLES12SP1HVM": "ami-7fa2061f",
                 "SLES12SP1SAPHVM": "ami-2f62dc4f",
-                "WS2012R2": "ami-8d0c07f4"
+                "WS2012R2": "ami-3dcbd744"
             }
         }
     },
@@ -1161,7 +1161,7 @@
                                 ]
                             ]
                         }
-                    },                    
+                    },
                     {
                         "IpProtocol": "tcp",
                         "CidrIp": {
@@ -1956,7 +1956,7 @@
                                         ]
                                     ]
                                 },
-                                " > /etc/hostname\n",                                
+                                " > /etc/hostname\n",
                                 "export http_proxy=",
                                 {
                                     "Ref": "Proxy"
@@ -1981,7 +1981,7 @@
                                 "\n",
                                 "export NO_PROXY=localhost,127.0.0.1,169.254.169.254",
                                 "\n",
-                                "mkdir /root/install\n",                                                              
+                                "mkdir /root/install\n",
                                 "wget https://s3.amazonaws.com/",
                                 {
                                     "Ref": "PrivateBucket"
@@ -2082,7 +2082,7 @@
                                 "sh /root/install/writeconfig.sh no_proxy=localhost,127.0.0.1,169.254.169.254",
                                 "\n",
                                 "sh /root/install/writeconfig.sh NO_PROXY=localhost,127.0.0.1,169.254.169.254",
-                                "\n",                                                                
+                                "\n",
                                 "sh /root/install/writeconfig.sh IsMasterNode=1",
                                 "\n",
                                 "sh /root/install/writeconfig.sh IsWorkerNode=0",
@@ -2363,7 +2363,7 @@
                                 "export no_proxy=localhost,127.0.0.1,169.254.169.254",
                                 "\n",
                                 "export NO_PROXY=localhost,127.0.0.1,169.254.169.254",
-                                "\n",                                                                
+                                "\n",
                                 "mkdir /root/install\n",
                                 "wget https://s3.amazonaws.com/",
                                 {
@@ -2460,7 +2460,7 @@
                                 "sh /root/install/writeconfig.sh no_proxy=localhost,127.0.0.1,169.254.169.254",
                                 "\n",
                                 "sh /root/install/writeconfig.sh NO_PROXY=localhost,127.0.0.1,169.254.169.254",
-                                "\n",                                
+                                "\n",
                                 "sh /root/install/writeconfig.sh IsMasterNode=0",
                                 "\n",
                                 "sh /root/install/writeconfig.sh IsWorkerNode=1",
@@ -2672,7 +2672,7 @@
                                         ]
                                     ]
                                 },
-                                " > /etc/hostname\n",                                
+                                " > /etc/hostname\n",
                                 "export http_proxy=",
                                 {
                                     "Ref": "Proxy"
@@ -2696,7 +2696,7 @@
                                 "export no_proxy=localhost,127.0.0.1,169.254.169.254",
                                 "\n",
                                 "export NO_PROXY=localhost,127.0.0.1,169.254.169.254",
-                                "\n",                                
+                                "\n",
                                 "mkdir /root/install\n",
                                 "wget https://s3.amazonaws.com/",
                                 {
@@ -2793,7 +2793,7 @@
                                 "sh /root/install/writeconfig.sh no_proxy=localhost,127.0.0.1,169.254.169.254",
                                 "\n",
                                 "sh /root/install/writeconfig.sh NO_PROXY=localhost,127.0.0.1,169.254.169.254",
-                                "\n",                                
+                                "\n",
                                 "sh /root/install/writeconfig.sh IsMasterNode=0",
                                 "\n",
                                 "sh /root/install/writeconfig.sh IsWorkerNode=1",
@@ -3005,7 +3005,7 @@
                                         ]
                                     ]
                                 },
-                                " > /etc/hostname\n",                                
+                                " > /etc/hostname\n",
                                 "export http_proxy=",
                                 {
                                     "Ref": "Proxy"
@@ -3029,7 +3029,7 @@
                                 "export no_proxy=localhost,127.0.0.1,169.254.169.254",
                                 "\n",
                                 "export NO_PROXY=localhost,127.0.0.1,169.254.169.254",
-                                "\n",                                
+                                "\n",
                                 "mkdir /root/install\n",
                                 "wget https://s3.amazonaws.com/",
                                 {
@@ -3126,7 +3126,7 @@
                                 "sh /root/install/writeconfig.sh no_proxy=localhost,127.0.0.1,169.254.169.254",
                                 "\n",
                                 "sh /root/install/writeconfig.sh NO_PROXY=localhost,127.0.0.1,169.254.169.254",
-                                "\n",                                
+                                "\n",
                                 "sh /root/install/writeconfig.sh IsMasterNode=0",
                                 "\n",
                                 "sh /root/install/writeconfig.sh IsWorkerNode=1",
@@ -3338,7 +3338,7 @@
                                         ]
                                     ]
                                 },
-                                " > /etc/hostname\n",                                
+                                " > /etc/hostname\n",
                                 "export http_proxy=",
                                 {
                                     "Ref": "Proxy"
@@ -3362,7 +3362,7 @@
                                 "export no_proxy=localhost,127.0.0.1,169.254.169.254",
                                 "\n",
                                 "export NO_PROXY=localhost,127.0.0.1,169.254.169.254",
-                                "\n",                                
+                                "\n",
                                 "mkdir /root/install\n",
                                 "wget https://s3.amazonaws.com/",
                                 {
@@ -3459,7 +3459,7 @@
                                 "sh /root/install/writeconfig.sh no_proxy=localhost,127.0.0.1,169.254.169.254",
                                 "\n",
                                 "sh /root/install/writeconfig.sh NO_PROXY=localhost,127.0.0.1,169.254.169.254",
-                                "\n",                                
+                                "\n",
                                 "sh /root/install/writeconfig.sh IsMasterNode=0",
                                 "\n",
                                 "sh /root/install/writeconfig.sh IsWorkerNode=1",
@@ -3671,7 +3671,7 @@
                                         ]
                                     ]
                                 },
-                                " > /etc/hostname\n",                                
+                                " > /etc/hostname\n",
                                 "export http_proxy=",
                                 {
                                     "Ref": "Proxy"
@@ -3695,7 +3695,7 @@
                                 "export no_proxy=localhost,127.0.0.1,169.254.169.254",
                                 "\n",
                                 "export NO_PROXY=localhost,127.0.0.1,169.254.169.254",
-                                "\n",                                
+                                "\n",
                                 "mkdir /root/install\n",
                                 "wget https://s3.amazonaws.com/",
                                 {
@@ -3792,7 +3792,7 @@
                                 "sh /root/install/writeconfig.sh no_proxy=localhost,127.0.0.1,169.254.169.254",
                                 "\n",
                                 "sh /root/install/writeconfig.sh NO_PROXY=localhost,127.0.0.1,169.254.169.254",
-                                "\n",                                
+                                "\n",
                                 "sh /root/install/writeconfig.sh IsMasterNode=0",
                                 "\n",
                                 "sh /root/install/writeconfig.sh IsWorkerNode=1",
