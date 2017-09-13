@@ -112,6 +112,7 @@
                 "SuSELinux11SP4",
                 "SuSELinux12",
                 "SuSELinux12SP1",
+                "SuSELinux12SP1ForSAP",
                 "RedHatLinux66",
                 "RedHatLinux67",
                 "RedHatLinux72"
@@ -130,7 +131,8 @@
                 "r4.4xlarge",
                 "r4.2xlarge",
                 "x1.16xlarge",
-                "x1.32xlarge"
+                "x1.32xlarge",
+                "x1e.32xlarge"
             ]
         },
         "RDPInstanceType": {
