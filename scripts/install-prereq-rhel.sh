@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ------------------------------------------------------------------
-#         Global Variables 
+#         Global Variables
 # ------------------------------------------------------------------
 
 SCRIPT_DIR=/root/install/
@@ -81,7 +81,7 @@ check_rhel() {
 }
 
 check_yum() {
-    
+
     YRM=$(yum -y remove gcc )
     YINST=$(yum -y install gcc | grep -i complete )
 
@@ -95,7 +95,7 @@ check_yum() {
 
 check_instancetype() {
 	INSTANCE_TYPE=$(curl http://169.254.169.254/latest/meta-data/instance-type 2> /dev/null )
-	IS_IT_X1=$(echo $INSTANCE_TYPE | grep -i x1)    
+	IS_IT_X1=$(echo $INSTANCE_TYPE | grep -i x1)
 
 	if [ "$IS_IT_X1" ]
 	then
@@ -141,71 +141,71 @@ install_prereq() {
     log "## Installing HANA Prerequisites...## "
 
     yum -y install xfsprogs 2>&1 | tee -a ${HANA_LOG_FILE}
+    yum -y install autofs 2>&1 | tee -a ${HANA_LOG_FILE}
 
     chkconfig nfs on
     service nfs restart
+    systemctl enable autofs
+    systemctl start autofs
 
 #error check and return
 }
 
 start_oss_configs() {
 
-    #This section is from OSS #2247020 - SAP HANA DB: Recommended OS settings for RHEL 
+    #This section is from OSS #2247020 - SAP HANA DB: Recommended OS settings for RHEL
 
-    echo "###################" >> /etc/rc.d/rc.local 
-    echo "#BEGIN: This section inserted by AWS SAP HANA Quickstart" >> /etc/rc.d/rc.local 
+    echo "###################" >> /etc/rc.d/rc.local
+    echo "#BEGIN: This section inserted by AWS SAP HANA Quickstart" >> /etc/rc.d/rc.local
 
     #Disable THP
     echo never > /sys/kernel/mm/transparent_hugepage/enabled
-    echo "echo never > /sys/kernel/mm/transparent_hugepage/enabled" >> /etc/rc.d/rc.local 
+    echo "echo never > /sys/kernel/mm/transparent_hugepage/enabled" >> /etc/rc.d/rc.local
 
     echo 10 > /proc/sys/vm/swappiness
-    echo "echo 10 > /proc/sys/vm/swappiness" >> /etc/rc.d/rc.local 
+    echo "echo 10 > /proc/sys/vm/swappiness" >> /etc/rc.d/rc.local
 
     #Disable KSM
     echo 0 > /sys/kernel/mm/ksm/run
-    echo "echo 0 > /sys/kernel/mm/ksm/run" >> /etc/rc.d/rc.local 
+    echo "echo 0 > /sys/kernel/mm/ksm/run" >> /etc/rc.d/rc.local
 
     #NoHZ is not set
 
     #Disable SELINUX
-    sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux 
+    sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
     sed -i 's/SELINUX=permissive/SELINUX=disabled/g' /etc/sysconfig/selinux
 
     #Disable AutoNUMA = N.A. for RHEL
 
-    
+
     yum -y install gcc
 
     yum -y install compat-sap-c++
 
     X1=$(check_instancetype)
 
-#    if [ "$X1" -eq 1 ]
-#    then
-#Set c-state - Not required
-#	    cpupower frequency-set -g performance > /dev/null
-#	    echo "cpupower frequency-set -g performance" >> /etc/init.d/boot.local
-	  
-	    #Stay in c-state 2 (Best Performance)
-#	    cpupower idle-set -d 6 > /dev/null; cpupower idle-set -d 5 > /dev/null
-#	    cpupower idle-set -d 4 > /dev/null; cpupower idle-set -d 3 > /dev/null
-#	    cpupower idle-set -d 2 > /dev/null; cpupower idle-set -d 1 > /dev/null
-#	    echo "cpupower idle-set -d 6 > /dev/null; cpupower idle-set -d 5 > /dev/null" >> /etc/init.d/boot.local 
-#	    echo "cpupower idle-set -d 4 > /dev/null; cpupower idle-set -d 3 > /dev/null" >> /etc/init.d/boot.local 
-#	    echo "cpupower idle-set -d 2 > /dev/null; cpupower idle-set -d 1 > /dev/null" >> /etc/init.d/boot.local 
-#
-#	    echo "#END: This section inserted by AWS SAP HANA Quickstart" >> /etc/init.d/boot.local
-#	    echo "###################" >> /etc/init.d/boot.local
-#    fi
+    instance_type=$(curl http://169.254.169.254/latest/meta-data/instance-type 2> /dev/null)
+    case $instance_type in
+      r4.8xlarge|r4.16xlarge|x1.16xlarge|x1.32xlarge|x1e.32xlarge )
+          log "`date` Configuring c-state"
+          cpupower frequency-set -g performance > /dev/null
+          cpupower idle-set -d 6 > /dev/null; cpupower idle-set -d 5 > /dev/null
+          cpupower idle-set -d 4 > /dev/null; cpupower idle-set -d 3 > /dev/null
+          cpupower idle-set -d 2 > /dev/null
+	        echo "cpupower frequency-set -g performance" >> /etc/init.d/boot.local
+          echo "cpupower idle-set -d 6 > /dev/null; cpupower idle-set -d 5 > /dev/null" >> /etc/init.d/boot.local
+     	    echo "cpupower idle-set -d 4 > /dev/null; cpupower idle-set -d 3 > /dev/null" >> /etc/init.d/boot.local
+     	    echo "cpupower idle-set -d 2 > /dev/null" >> /etc/init.d/boot.local ;;
+      *)
+          log "`date`  Instance type doesn't allow c-state and p-state configuration" ;;
+    esac
 
-#error check and return
 }
 
 #***END Functions***
 
 # ------------------------------------------------------------------
-#         Code Body section 
+#         Code Body section
 # ------------------------------------------------------------------
 
 #Call Functions
@@ -216,42 +216,42 @@ X1=$(check_instancetype)
 #Check the O.S. Version
 KV=$(uname -r)
 
-#Check to see if instance type is X1 and RHEL version is supported 
-if [ $(check_kernel) == 0 -a $(check_instancetype) == 1 -a "$MyOS" == "RHEL66SAPHVM" ] 
+#Check to see if instance type is X1 and RHEL version is supported
+if [ $(check_kernel) == 0 -a $(check_instancetype) == 1 -a "$MyOS" == "RHEL66SAPHVM" ]
 then
     log "Calling signal-failure.sh from $0 @ `date` with INCOMPATIBLE_RHEL parameter"
-    log "Instance Type = X1: $X1 and RHEL 6.6 is not supported with X1: $KV" 
-    /root/install/signal-failure.sh "INCOMPATIBLE_RHEL" 
+    log "Instance Type = X1: $X1 and RHEL 6.6 is not supported with X1: $KV"
+    /root/install/signal-failure.sh "INCOMPATIBLE_RHEL"
     touch "$SIG_FLAG_FILE"
     sleep 300
     exit 1
 fi
-# Check to see if RHEL 6.x is used with X1 scale out. 
-if [ "$MyOS" == "RHEL67SAPHVM" -a $(check_instancetype) == 1 -a $HostCount -gt 1 ] 
+# Check to see if RHEL 6.x is used with X1 scale out.
+if [ "$MyOS" == "RHEL67SAPHVM" -a $(check_instancetype) == 1 -a $HostCount -gt 1 ]
 then
     log "Calling signal-failure.sh from $0 @ `date` with INCOMPATIBLE_RHEL_SCALEOUT parameter"
-    log "Instance Type = X1: $X1 and RHEL 6.7 is not supported with X1 Scaleout: $KV" 
-    /root/install/signal-failure.sh "INCOMPATIBLE_RHEL_SCALEOUT" 
+    log "Instance Type = X1: $X1 and RHEL 6.7 is not supported with X1 Scaleout: $KV"
+    /root/install/signal-failure.sh "INCOMPATIBLE_RHEL_SCALEOUT"
     touch "$SIG_FLAG_FILE"
     sleep 300
     exit 1
 fi
 
-#Check to see if yum repository is registered 
-if [ $(check_yum) == 0 ] 
+#Check to see if yum repository is registered
+if [ $(check_yum) == 0 ]
 then
     log "Calling signal-failure.sh from $0 @ `date` with YUM parameter"
-    log "Instance Type = X1: $X1 and yum repository is not correct." 
-    /root/install/signal-failure.sh "YUM" 
+    log "Instance Type = X1: $X1 and yum repository is not correct."
+    /root/install/signal-failure.sh "YUM"
     touch "$SIG_FLAG_FILE"
     sleep 300
     exit 1
 fi
 
-#Check to see if we are on RHEL 
-if [ $(check_rhel) == 1 ] 
+#Check to see if we are on RHEL
+if [ $(check_rhel) == 1 ]
 then
-    log "Instance Type = X1: $X1 and Operating System is RHEL for SAP." 
+    log "Instance Type = X1: $X1 and Operating System is RHEL for SAP."
     #Install unrar and exit
     # ------------------------------------------------------------------
     #   At the time of writing, marketplace RHEL and marketplace SUSE
@@ -275,5 +275,5 @@ then
 
     log "## Completed HANA Prerequisites installation ## "
 
-    exit 0 
+    exit 0
 fi

@@ -120,26 +120,21 @@ log '================================================================='
 
 #Run Installer
 # cat $PASSFILE | $HANAMEDIA/HDB_LCM_LINUX_X86_64/hdblcm --action=install --batch --autostart=1 -sid=$SID  --groupid=110 --hostname=$MASTER_HOSTNAME --number=$INSTANCE  --hdbinst_server_ignore=check_hardware --read_password_from_stdin=xml
-
 #New fix: This will ensure the installation of all components except: lcapps and afl.  Both of these are optional and can be installed later directly by the customer.
-
 ##cat $PASSFILE | $HANAMEDIA/HDB_LCM_LINUX_X86_64/hdblcm --action=install --components=client,hlm,server,studio --batch --autostart=1 -sid=$SID  --groupid=110 --hostname=$MASTER_HOSTNAME --number=$INSTANCE  --hdbinst_server_ignore=check_hardware --read_password_from_stdin=xml >> ${HANA_LOG_FILE} 2>&1
-
 #cat $PASSFILE | $HANAMEDIA/HDB_LCM_LINUX_X86_64/hdblcm --action=install --components=client,server --batch --autostart=1 -sid=$SID  --groupid=110 --hostname=$MASTER_HOSTNAME --number=$INSTANCE  --hdbinst_server_ignore=check_hardware --read_password_from_stdin=xml >> ${HANA_LOG_FILE} 2>&1
-
-
-
-HANAVERSION=$($HANAMEDIA/HDB_LCM_LINUX_X86_64/hdblcm  -version \
-		| grep -i version  \
-		| awk -F'\.' '{print $3}')
-
-if (( ${HANAVERSION} < 90 ));
-then
-	cat $PASSFILE | $HANAMEDIA/HDB_LCM_LINUX_X86_64/hdblcm --action=install --components=client,server --batch --autostart=1 -sid=$SID  --hostname=$MASTER_HOSTNAME --number=$INSTANCE  --hdbinst_server_ignore=check_hardware --read_password_from_stdin=xml >> ${HANA_LOG_FILE} 2>&1
-else
+# sabari - Start removing Version condition
+# HANAVERSION=$($HANAMEDIA/HDB_LCM_LINUX_X86_64/hdblcm  -version \
+# 		| grep -i version  \
+# 		| awk -F'\.' '{print $3}')
+# if (( ${HANAVERSION} < 90 ));
+# then
+# 	cat $PASSFILE | $HANAMEDIA/HDB_LCM_LINUX_X86_64/hdblcm --action=install --components=client,server --batch --autostart=1 -sid=$SID  --hostname=$MASTER_HOSTNAME --number=$INSTANCE  --hdbinst_server_ignore=check_hardware --read_password_from_stdin=xml >> ${HANA_LOG_FILE} 2>&1
+# else
 # removed check_hardware
-	cat $PASSFILE | $HANAMEDIA/HDB_LCM_LINUX_X86_64/hdblcm --action=install --components=client,server --batch --autostart=1 -sid=$SID  --hostname=$MASTER_HOSTNAME --number=$INSTANCE  --read_password_from_stdin=xml >> ${HANA_LOG_FILE} 2>&1
-fi
+cat $PASSFILE | $HANAMEDIA/HDB_LCM_LINUX_X86_64/hdblcm --action=install --components=client,server --batch --autostart=1 -sid=$SID  --hostname=$MASTER_HOSTNAME --number=$INSTANCE  --read_password_from_stdin=xml >> ${HANA_LOG_FILE} 2>&1
+# fi
+# sabari - End removing Version condition
 
 # extract the gid used, populate /hana/shared
 if (( ${USE_NEW_STORAGE} == 1 )); then
@@ -158,7 +153,6 @@ fi
 
 #Remove Password file
 rm $PASSFILE
-
 
 # ------------------------------------------------------------------
 #	   Post HANA install
@@ -204,11 +198,12 @@ echo 'basepath_logbackup = /backup/log/'${SID} >> $v_global
 echo '' >> $v_global
 echo '[communication]' >> $v_global
 echo 'listeninterface = .global' >> $v_global
+echo 'ssl = systempki' >> $v_global
 
 # Add SSL Configuration parameter for internal communication OSS Note 2175672
-if (( ${HANAVERSION} >=  110 )); then
-    echo 'ssl = systempki' >> $v_global
-fi
+# if (( ${HANAVERSION} >=  110 )); then
+# echo 'ssl = systempki' >> $v_global
+# fi
 
 if [ -e "$v_daemon" ] ; then
    log "$(date) __ deleting the old entries in $v_daemon"
@@ -231,27 +226,5 @@ log "Restarting HANA DB after customizing global.ini"
 su - ${adm} -c "HDB stop 2>&1"
 su - ${adm} -c "HDB start 2>&1"
 
-#Copy Host Agent RPM for worker nodes
-#if [ -e "${HANAMEDIA}/SAP_HOST_AGENT_LINUX_X64/saphostagent.rpm" ]; then
-#   TRANS_SOFT=/hana/shared/$SID/trans/software
-#   mkdir $TRANS_SOFT
-#   chown ${adm}:sapsys $TRANS_SOFT
-#   cp ${HANAMEDIA}/SAP_HOST_AGENT_LINUX_X64/saphostagent.rpm $TRANS_SOFT
-#fi
-
-#Modify HanaHwCheck.py to support multi-node deployments
-
-if (( ${USE_NEW_STORAGE} == 1 )); then
-	HWCHECK="/hana/shared/$SID/exe/linuxx86_64/hdb/python_support/HanaHwCheck.py"
-else
-	HWCHECK="/hana/shared/$SID/exe/linuxx86_64/hdb/python_support/HanaHwCheck.py"
-fi
-
-if [ -e "${HWCHECK}" ]; then
-   sed -i "/performing Hardware/ a\ \t\treturn 0" ${HWCHECK}
-else
-   log "Unable to modify HanaHwCheck.py script.  Adding additional hosts may fail"
-fi
 
 log `date` END install-hana-master
-

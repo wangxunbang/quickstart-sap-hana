@@ -3,10 +3,10 @@
 #          Install aws cli tools and jq
 # ------------------------------------------------------------------
 
-usage() { 
+usage() {
     cat <<EOF
     Usage: $0 [options]
-        -h print usage        
+        -h print usage
         -t Topic
         -e email
 EOF
@@ -50,7 +50,7 @@ if [ ! -f ${JQ_COMMAND} ]; then
 	chmod 755 ${JQ_COMMAND}
 fi
 
-[ -e /root/install/config.sh ] && source /root/install/config.sh 
+[ -e /root/install/config.sh ] && source /root/install/config.sh
 export AWS_DEFAULT_REGION=${REGION}
 export AWS_DEFAULT_AVAILABILITY_ZONE=${AVAILABILITY_ZONE}
 
@@ -89,11 +89,3 @@ ${AWS_CMD} sns create-topic --name MyTopic
 
 
 exit 0
-
-
-
-
-
-
-
-
