@@ -182,7 +182,8 @@
             "Type": "String",
             "Default": "00",
             "Description": "SAP HANA instance number to use for installation and setup, and to open ports for security groups.",
-            "AllowedPattern": "([0-9]{1}[0-7]{1})"
+            "AllowedPattern": "([0-8]{1}[0-9]{1}|[9]{1}[0-7]{1})",
+            "ConstraintDescription": "Instance number must be between 00 and 97."            
         },
         "HANAMasterPass": {
             "Type": "String",
