@@ -324,6 +324,10 @@ install_prereq_sles12sp2sap() {
   log "`date` - Start saptune daemon"
   saptune daemon start | tee -a ${HANA_LOG_FILE}
   log "`date` - Apply saptune HANA profile"
+  mkdir /etc/tuned/saptune # OSS Note 2205917
+  cp /usr/lib/tuned/saptune/tuned.conf /etc/tuned/saptune/tuned.conf # OSS Note 2205917
+  sed -i "/\[cpu\]/ a force_latency=70" /etc/tuned/saptune/tuned.conf # OSS Note 2205917
+  sed -i "s/script.sh/\/usr\/lib\/tuned\/saptune\/script.sh/" /etc/tuned/saptune/tuned.conf # OSS Note 2205917  
   saptune solution apply HANA | tee -a ${HANA_LOG_FILE}
 
 }
